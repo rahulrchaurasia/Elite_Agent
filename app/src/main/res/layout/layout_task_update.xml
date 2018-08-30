@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtHdr"
+        style="@style/TextViewStyle.Large"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
+
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:padding="14dp"
+        android:text="Task Update"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+
+        <TextView
+
+            style="@style/TextViewStyle.Medium"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Order Status :" />
+
+
+        <Spinner
+
+            android:id="@+id/spStatus"
+            style="@style/SpinnerStyle.Underlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:singleLine="true" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Remark">
+
+            <EditText
+                android:id="@+id/etRemark"
+                style="@style/Style.edittext"
+                android:maxLines="3"
+
+                />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnClose"
+            style="@style/ButtonStyle"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:text="CLOSE" />
+        <Button
+            android:id="@+id/btnProceed"
+            style="@style/ButtonStyle"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:text="SUBMIT" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

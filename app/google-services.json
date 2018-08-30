@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1033812338841",
+    "firebase_url": "https://elite-agent-7b4b9.firebaseio.com",
+    "project_id": "elite-agent-7b4b9",
+    "storage_bucket": "elite-agent-7b4b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033812338841:android:e88e7d16766d38b4",
+        "android_client_info": {
+          "package_name": "account.rb.com.elite_agent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033812338841-ku8olhmqr75kfn1h8mhonm3f7mmabrqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6h9w63bBYLRNqByZXfJh8rl1cniQlgw4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

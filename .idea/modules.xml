@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/elite-agent.iml" filepath="$PROJECT_DIR$/.idea/elite-agent.iml" />
+      <module fileurl="file://D:\Project_Company\elite-agent\elite-agent.iml" filepath="D:\Project_Company\elite-agent\elite-agent.iml" />
+    </modules>
+  </component>
+</project>

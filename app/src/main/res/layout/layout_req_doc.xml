@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtHdr"
+        style="@style/TextViewStyle.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:padding="14dp"
+        android:text="Service Request Proforma"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtHdr"
+        android:layout_above="@+id/btnClose"
+        app:cardCornerRadius="5dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* Name"
+                    android:textColor="@color/back_button_color" />
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* Name"
+                    android:textColor="@color/back_button_color" />
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* Policy Number"
+                    android:textColor="@color/back_button_color" />
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* Phone Number"
+                    android:textColor="@color/back_button_color" />
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* Type Of Service Required"
+                    android:textColor="@color/back_button_color" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="25dp">
+
+                    <TextView
+                        style="@style/TextViewStyle.Small"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="left"
+                        android:padding="3dp"
+                        android:text="*RTO Services"
+                        android:textColor="@color/back_button_color" />
+
+                    <TextView
+                        style="@style/TextViewStyle.Small"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="left"
+                        android:padding="3dp"
+                        android:text="* Health Insurance Services"
+                        android:textColor="@color/back_button_color" />
+
+                    <TextView
+                        style="@style/TextViewStyle.Small"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="left"
+                        android:padding="3dp"
+                        android:text="* Life Insurance Services"
+                        android:textColor="@color/back_button_color" />
+
+                    <TextView
+                        style="@style/TextViewStyle.Small"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="left"
+                        android:padding="3dp"
+                        android:text="* Financial Services"
+                        android:textColor="@color/back_button_color" />
+
+                    <TextView
+                        style="@style/TextViewStyle.Small"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="left"
+                        android:padding="3dp"
+                        android:text="* Other"
+                        android:textColor="@color/back_button_color" />
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* Service Request Date"
+                    android:textColor="@color/back_button_color" />
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* Expected TAT"
+                    android:textColor="@color/back_button_color" />
+
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* Within / On Time"
+                    android:textColor="@color/back_button_color" />
+
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* Out OF TAT"
+                    android:textColor="@color/back_button_color" />
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="Reason For Out Of TAT"
+                    android:textColor="@color/back_button_color" />
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* Customer Comment"
+                    android:textColor="@color/back_button_color" />
+
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* ServicePerformer Comment"
+                    android:textColor="@color/back_button_color" />
+
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* Any Otht Comment"
+                    android:textColor="@color/back_button_color" />
+
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* Recommended For Other Products"
+                    android:textColor="@color/back_button_color" />
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* If No - Why"
+                    android:textColor="@color/back_button_color" />
+
+
+                <TextView
+                    style="@style/TextViewStyle.Small"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="* If Yes - Name of the product and farwarded to whom in the company "
+                    android:textColor="@color/back_button_color" />
+
+
+            </LinearLayout>
+        </ScrollView>
+
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/btnClose"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="CLOSE" />
+
+
+</RelativeLayout>
