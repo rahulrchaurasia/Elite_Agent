@@ -1,7 +1,10 @@
 package account.rb.com.elite_agent;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,12 +12,17 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import account.rb.com.elite_agent.Dashboard.DashBoardFragment;
@@ -22,11 +30,13 @@ import account.rb.com.elite_agent.core.model.LoginEntity;
 import account.rb.com.elite_agent.core.model.UserEntity;
 import account.rb.com.elite_agent.database.DataBaseController;
 import account.rb.com.elite_agent.login.ChangePasswordFragment;
-import account.rb.com.elite_agent.login.loginActivity;
+import account.rb.com.elite_agent.login.LoginActivity;
+import account.rb.com.elite_agent.notification.NotificationActivity;
 import account.rb.com.elite_agent.pendingDetail.PendingTaskDetailFragment;
 import account.rb.com.elite_agent.product.ProductFragment;
 import account.rb.com.elite_agent.splash.PrefManager;
 import account.rb.com.elite_agent.taskDetail.TaskDetailFragment;
+import account.rb.com.elite_agent.utility.Constants;
 
 
 public class HomeActivity extends BaseActivity {
@@ -39,6 +49,7 @@ public class HomeActivity extends BaseActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    TextView textNotifyItemCount, txtEmail, txtName;
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
 
@@ -52,6 +63,29 @@ public class HomeActivity extends BaseActivity {
     public static String CURRENT_TAG = TAG_HOME;
     PrefManager prefManager;
 
+    //region broadcast receiver
+    public BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (intent.getAction() != null) {
+                if (intent.getAction().equalsIgnoreCase(Constants.PUSH_BROADCAST_ACTION)) {
+                    int notifyCount = prefManager.getNotificationCounter();
+
+                    if (notifyCount == 0) {
+                        textNotifyItemCount.setVisibility(View.GONE);
+                    } else {
+                        textNotifyItemCount.setVisibility(View.VISIBLE);
+                        textNotifyItemCount.setText("" + String.valueOf(notifyCount));
+                    }
+                }
+            }
+
+        }
+    };
+
+    //endregion
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +99,10 @@ public class HomeActivity extends BaseActivity {
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         dataBaseController = new DataBaseController(HomeActivity.this);
-        loginEntity = dataBaseController.getUserData();
         prefManager = new PrefManager(this);
+        loginEntity = prefManager.getUserData();
         setUpNavigationView();
+        init_headers();
 
         if (savedInstanceState == null) {
             navItemIndex = 0;
@@ -77,6 +112,23 @@ public class HomeActivity extends BaseActivity {
 
     }
 
+    private void init_headers() {
+
+        View headerView = navigationView.getHeaderView(0);
+        txtName = (TextView) headerView.findViewById(R.id.txtName);
+        txtEmail = (TextView) headerView.findViewById(R.id.txtEmail);
+
+        if (loginEntity != null) {
+
+            txtName.setText("" + loginEntity.getName());
+            txtEmail.setText("" + loginEntity.getEmail());
+
+        } else {
+            txtName.setText("");
+            txtEmail.setText("");
+
+        }
+    }
     private void setUpNavigationView() {
         navigationView.setItemIconTintList(null);
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
@@ -115,9 +167,9 @@ public class HomeActivity extends BaseActivity {
 
                     case R.id.nav_logout:
 
-                        dataBaseController.logout();
+                       // dataBaseController.logout();
                         clear();
-                        Intent intent = new Intent(HomeActivity.this, loginActivity.class);
+                        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
@@ -282,7 +334,7 @@ public class HomeActivity extends BaseActivity {
             } else {
                 if (doubleBackToExitPressedOnce) {
                     super.onBackPressed();
-                    dataBaseController.logout();
+
                     return;
                 }
 
@@ -306,7 +358,88 @@ public class HomeActivity extends BaseActivity {
     {
         prefManager.setMobile("");
         prefManager.setPassword("");
+        prefManager.clearUserCache();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.dashboard_menu, menu);
+
+        final MenuItem menuItem = menu.findItem(R.id.action_push_notification);
+
+        //  SearchView actionView = (SearchView) menuItem.getActionView();
+
+        View actionView = MenuItemCompat.getActionView(menuItem);
+        textNotifyItemCount = (TextView) actionView.findViewById(R.id.notify_badge);
+        textNotifyItemCount.setVisibility(View.GONE);
+
+        int PushCount = prefManager.getNotificationCounter();
+
+        if (PushCount == 0) {
+            textNotifyItemCount.setVisibility(View.GONE);
+        } else {
+            textNotifyItemCount.setVisibility(View.VISIBLE);
+            textNotifyItemCount.setText("" + String.valueOf(PushCount));
+        }
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                onOptionsItemSelected(menuItem);
+
+
+            }
+        });
+
+
+        return true;
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent;
+        switch (item.getItemId()) {
+
+            case R.id.action_push_notification:
+                intent = new Intent(HomeActivity.this, NotificationActivity.class);
+                startActivityForResult(intent, Constants.REQUEST_CODE);
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        LocalBroadcastManager.getInstance(HomeActivity.this).registerReceiver(mHandleMessageReceiver, new IntentFilter(Constants.PUSH_BROADCAST_ACTION));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mHandleMessageReceiver);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("RESULT", "Activity");
+        if (requestCode == Constants.REQUEST_CODE) {
+            if (data != null) {
+                int Counter = prefManager.getNotificationCounter();
+                textNotifyItemCount.setText("" + Counter);
+                textNotifyItemCount.setVisibility(View.GONE);
+
+            }
+
+        }
+    }
 
 }

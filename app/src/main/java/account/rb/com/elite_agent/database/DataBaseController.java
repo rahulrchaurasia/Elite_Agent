@@ -32,19 +32,19 @@ public class DataBaseController {
 
     // region Login Detail
 
-    public void logout() {
-        realm.beginTransaction();
-        realm.delete(UserEntity.class);
-        realm.commitTransaction();
-    }
-
-    public UserEntity getUserData() {
-        UserEntity entity = realm.where(UserEntity.class).findFirst();
-        if (entity != null)
-            return entity;
-        else
-            return null;
-    }
+//    public void logout() {
+//        realm.beginTransaction();
+//        realm.delete(UserEntity.class);
+//        realm.commitTransaction();
+//    }
+//
+//    public UserEntity getUserData() {
+//        UserEntity entity = realm.where(UserEntity.class).findFirst();
+//        if (entity != null)
+//            return entity;
+//        else
+//            return null;
+//    }
 
     public ArrayList<String> getOrderStatusList() {
         List<OrderStatusEntity> categoryEntityList = realm.where(OrderStatusEntity.class).findAll();

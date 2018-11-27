@@ -2,17 +2,22 @@ package account.rb.com.elite_agent.core.model;
 
 public class OrderSummaryEntity {
     /**
+     * Pending : 0
+     * Complete : 0
+     * Current : 0
+     * Loss : 0
+     */
+
+    /**
      * Status : Pending
      * count : 0.00
      */
 
+
     private String Pending;
     private String Complete;
-    private String Wallet;
-    private String Status;
-
-
-    private String Lost;
+    private String Current;
+    private String Loss;
 
     public String getPending() {
         return Pending;
@@ -30,28 +35,20 @@ public class OrderSummaryEntity {
         this.Complete = Complete;
     }
 
-    public String getWallet() {
-        return Wallet;
+    public String getCurrent() {
+        return Current;
     }
 
-    public void setWallet(String Wallet) {
-        this.Wallet = Wallet;
+    public void setCurrent(String Current) {
+        this.Current = Current;
     }
 
-    public String getStatus() {
-        return Status;
+    public String getLoss() {
+        return Loss;
     }
 
-    public void setStatus(String Status) {
-        this.Status = Status;
-    }
-
-    public String getLost() {
-        return Lost;
-    }
-
-    public void setLost(String lost) {
-        Lost = lost;
+    public void setLoss(String Loss) {
+        this.Loss = Loss;
     }
 
 

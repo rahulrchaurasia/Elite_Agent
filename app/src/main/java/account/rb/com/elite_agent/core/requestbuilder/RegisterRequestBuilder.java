@@ -2,16 +2,20 @@ package account.rb.com.elite_agent.core.requestbuilder;
 
 import account.rb.com.elite_agent.core.RetroRequestBuilder;
 import account.rb.com.elite_agent.core.requestmodel.AddUserRequestEntity;
+import account.rb.com.elite_agent.core.requestmodel.RegisterRequest;
 import account.rb.com.elite_agent.core.requestmodel.UpdateUserRequestEntity;
 import account.rb.com.elite_agent.core.response.AddUserResponse;
 import account.rb.com.elite_agent.core.response.CommonResponse;
 import account.rb.com.elite_agent.core.response.GetOtpResponse;
+import account.rb.com.elite_agent.core.response.IfscCodeResponse;
 import account.rb.com.elite_agent.core.response.LoginResponse;
 import account.rb.com.elite_agent.core.response.PincodeResponse;
 import account.rb.com.elite_agent.core.response.UpdateUserResponse;
 
 import java.util.HashMap;
 
+import account.rb.com.elite_agent.core.response.UserRegistrationResponse;
+import account.rb.com.elite_agent.core.response.VerifyUserRegisterResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -45,6 +49,15 @@ public class RegisterRequestBuilder extends RetroRequestBuilder {
 
         @POST("/api/forgot-password")
         Call<CommonResponse> forgotPassword(@Body HashMap<String, String> body);
+
+        @POST("/api/check-user-registration")
+        Call<VerifyUserRegisterResponse> verifyUserRegistration(@Body HashMap<String, String> body);
+
+        @POST("/api/agent-otp-verify")
+        Call<UserRegistrationResponse> userRegistration(@Body RegisterRequest registerRequest);
+
+        @POST("/api/get-ifsc-code")
+        Call<IfscCodeResponse> getIfscCode(@Body HashMap<String, String> body);
 
     }
 }

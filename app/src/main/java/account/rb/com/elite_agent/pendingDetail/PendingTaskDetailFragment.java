@@ -1,6 +1,9 @@
 package account.rb.com.elite_agent.pendingDetail;
 
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -12,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,12 +33,13 @@ import account.rb.com.elite_agent.core.model.UserEntity;
 import account.rb.com.elite_agent.core.response.AgentCommonResponse;
 import account.rb.com.elite_agent.core.response.TaskDetailResponse;
 import account.rb.com.elite_agent.database.DataBaseController;
+import account.rb.com.elite_agent.splash.PrefManager;
 import account.rb.com.elite_agent.taskDetail.TaskDetailAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PendingTaskDetailFragment extends BaseFragment implements IResponseSubcriber {
+public class PendingTaskDetailFragment extends BaseFragment implements IResponseSubcriber ,BaseFragment.CustomPopUpListener {
 
 
     UserEntity loginEntity;
@@ -43,6 +49,10 @@ public class PendingTaskDetailFragment extends BaseFragment implements IResponse
     List<TaskEntity> lsTaskDetail;
     PendingTaskDetailAdapter mAdapter;
     List<String> statuslist;
+    PrefManager prefManager;
+    TaskEntity taskEntityMain;
+    int acceptStausMain = 0 ;
+
 
     public PendingTaskDetailFragment() {
         // Required empty public constructor
@@ -58,19 +68,20 @@ public class PendingTaskDetailFragment extends BaseFragment implements IResponse
         View view = inflater.inflate(R.layout.fragment_task_detailragment, container, false);
         initilize(view);
         dataBaseController = new DataBaseController(getActivity());
-        loginEntity = dataBaseController.getUserData();
+        prefManager = new PrefManager(getActivity());
+        loginEntity = prefManager.getUserData();
 
         statuslist = dataBaseController.getOrderStatusList();
         statuslist.add(0, "Select");
 
-
+        registerCustomPopUp(this);
         return view;
     }
 
     private void initilize(View view) {
         rvOrderDtl = (RecyclerView) view.findViewById(R.id.rvOrderDtl);
         rvOrderDtl.setHasFixedSize(true);
-
+        taskEntityMain = new TaskEntity();
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rvOrderDtl.setLayoutManager(mLayoutManager);
 
@@ -85,7 +96,7 @@ public class PendingTaskDetailFragment extends BaseFragment implements IResponse
 
                 //Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                 lsTaskDetail = ((TaskDetailResponse) response).getData();
-                mAdapter = new PendingTaskDetailAdapter(PendingTaskDetailFragment.this, lsTaskDetail);
+               // mAdapter = new PendingTaskDetailAdapter(PendingTaskDetailFragment.this, lsTaskDetail);
                 rvOrderDtl.setAdapter(mAdapter);
 
             } else {
@@ -93,7 +104,10 @@ public class PendingTaskDetailFragment extends BaseFragment implements IResponse
             }
         }else if(response instanceof AgentCommonResponse )
         {
+            taskEntityMain = null;
+            acceptStausMain = 0;
             Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+
             showDialog();
             new ProductController(getContext()).pendingTaskDetail(loginEntity.getUser_id(),0, this);
 
@@ -109,7 +123,17 @@ public class PendingTaskDetailFragment extends BaseFragment implements IResponse
 
 
     public void redirectToPendingTask(TaskEntity taskEntity ,int acceptStaus) {
-        updatePendingTask(taskEntity,acceptStaus);
+
+        taskEntityMain = taskEntity;
+        acceptStausMain =  acceptStaus ;
+        if(acceptStaus == 1)
+        {
+            openPopUp(rvOrderDtl, "Confirmation",getResources().getString(R.string.accept_msg), "YES", "NO", true, false);
+        }
+       else if( acceptStaus == 2){
+            openPopUp(rvOrderDtl, "Confirmation",getResources().getString(R.string.reject_msg), "YES", "NO", true, false);
+        }
+
     }
 
 
@@ -127,5 +151,21 @@ public class PendingTaskDetailFragment extends BaseFragment implements IResponse
         showDialog();
         new ProductController(getContext()).pendingTaskDetail(loginEntity.getUser_id(),0, this);
 
+    }
+
+
+    @Override
+    public void onPositiveButtonClick(Dialog dialog, View view) {
+
+        dialog.cancel();
+        if(taskEntityMain != null) {
+            updatePendingTask(taskEntityMain, acceptStausMain);
+        }
+    }
+
+    @Override
+    public void onCancelButtonClick(Dialog dialog, View view) {
+
+        dialog.cancel();
     }
 }

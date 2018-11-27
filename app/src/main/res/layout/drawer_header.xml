@@ -2,46 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:background="@color/colorAccent"
-    android:gravity="center"
+    android:background="@drawable/side_nav_bar"
+    android:gravity="bottom"
     android:minHeight="170dp"
     android:orientation="vertical">
 
 
-    <!--<ImageView-->
-    <!--android:id="@+id/imageView"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="200dp"-->
-    <!--android:layout_alignParentLeft="true"-->
-    <!--android:layout_alignParentStart="true"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:background="@drawable/slider_screen_top_bg"-->
-    <!--android:scaleType="centerCrop" />-->
-
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="76dp"
-        android:layout_height="76dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/txtEntityName"
-        android:layout_width="wrap_content"
+        android:id="@+id/txtName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome Elite Agent "
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@android:color/white" />
+        style="@style/TextViewStyle.Large"
+        android:textColor="@color/white"
+       android:text="hhhhh" />
 
     <TextView
-        android:id="@+id/txtABNNumber"
+        android:text="jjjjjj"
+        android:id="@+id/txtEmail"
+        style="@style/TextViewStyle.Medium"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@android:color/white" />
+        android:layout_height="wrap_content"/>
+
 
 </LinearLayout>

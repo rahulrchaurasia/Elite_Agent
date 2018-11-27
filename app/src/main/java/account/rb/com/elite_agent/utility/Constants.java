@@ -15,6 +15,13 @@ public class Constants {
     public static String DEVICE_TOKEN = "devicetoken";
     public static String PUSH_NOTIFY = "pushNotify";
 
+    public static String TASK_TYPE = "taskType";
+    public static final int PERMISSION_CAMERA_STORACGE_CONSTANT = 103;
+    public static final int PERMISSION_CALLBACK_CONSTANT = 100;
+    public static final int REQUEST_PERMISSION_SETTING = 101;
+    public static String PUSH_BROADCAST_ACTION = "Finmart_Push_BroadCast_Action";
+    public static int REQUEST_CODE = 22;
+
 
     public static void hideKeyBoard(View view, Context context) {
         if (view != null) {

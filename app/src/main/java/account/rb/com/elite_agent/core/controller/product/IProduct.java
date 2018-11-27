@@ -21,4 +21,5 @@ public interface IProduct {
 
     void orderSummary( int agent_id, IResponseSubcriber iResponseSubcriber);
 
+    void getNotifcation(int userid,String count, IResponseSubcriber iResponseSubcriber);
 }

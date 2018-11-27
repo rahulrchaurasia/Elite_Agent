@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="account.rb.com.elite_agent.login.loginActivity"
+    tools:context="account.rb.com.elite_agent.login.LoginActivity"
     tools:showIn="@layout/activity_login">
 
 
@@ -22,7 +22,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="30dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/elite_logo" />
 
 
         <android.support.design.widget.TextInputLayout
@@ -72,28 +72,39 @@
             android:layout_marginTop="8dp"
             android:text="SIGN IN" />
 
-        <TextView
-            android:id="@+id/tvForgotPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="forgot password?"
-            android:textAppearance="@style/TextStyle.Body1"
-            android:textColor="@color/colorPrimary"
-            android:visibility="visible" />
-
-        <TextView
-            android:id="@+id/tvRegistration"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="New Registration "
-            android:visibility="gone"
-            android:textAppearance="@style/TextStyle.Title"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="italic" />
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <TextView
+                android:id="@+id/tvRegistration"
+                style="@style/TextViewStyle.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_weight="0.6"
+                android:gravity="left"
+                android:text="@string/signup"
+                android:textColor="@color/header_dark_text"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvForgotPassword"
+                style="@style/TextViewStyle.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_weight="0.4"
+                android:gravity="right"
+
+                android:text="@string/forgotPwd"
+                android:textColor="@color/header_dark_text" />
+
+        </LinearLayout>
+
+
 
 
     </LinearLayout>

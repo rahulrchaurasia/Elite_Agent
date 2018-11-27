@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_dashboard"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="account.rb.com.elite_agent.EmailUs.EmailUsActivity"
+    tools:showIn="@layout/activity_email_us">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            style="@style/TextViewStyle.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Email Us"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            style="@style/TextViewStyle.MediumBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Support/Feedback"
+            android:textColor="@color/red_light"
+            android:textSize="16dp" />
+
+        <TextView
+            style="@style/TextViewStyle.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Email or Call us for any kind of support / feedback"
+
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:id="@+id/lyEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/vector_email_white"
+                android:tint="@color/lightBlue" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextViewStyle.Large"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_marginTop="3sp"
+                android:text="Elite@Rupeeboss.com"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lyCalling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/vector_call"
+                android:tint="@color/uvv_green" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextViewStyle.Large"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_marginTop="2dp"
+                android:text="@string/call_number"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/lightGrey"
+        />
+</LinearLayout>

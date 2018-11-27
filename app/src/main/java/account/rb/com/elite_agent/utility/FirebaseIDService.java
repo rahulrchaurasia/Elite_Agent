@@ -15,29 +15,26 @@ import account.rb.com.elite_agent.splash.PrefManager;
 public class FirebaseIDService   extends FirebaseInstanceIdService {
     private static final String TAG = "FirebaseIDService";
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
 
+    PrefManager prefManager;
     @Override
     public void onTokenRefresh() {
         super.onTokenRefresh();
 
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-
+        prefManager = new PrefManager(this);
         Log.d(TAG, "Refreshed token: " + refreshedToken);
         // TODO: Implement this method to send any registration to your app's servers.
         sendRegistrationToServer(refreshedToken);
     }
 
 
+
+
     private void sendRegistrationToServer(String token) {
         // Add custom implementation, as needed.
 
-
-        sharedPreferences = getSharedPreferences("ELITE_AGENT", MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        editor.putString(Constants.DEVICE_TOKEN, token);
-        editor.commit();
+        prefManager.setToken(token);
 
     }
 }

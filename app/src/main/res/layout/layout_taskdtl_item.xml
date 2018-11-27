@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lyParent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/lyParent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/seperator"
     android:orientation="vertical"
+    android:paddingBottom="4dp"
     android:paddingLeft="4dp"
-    android:paddingRight="4dp"
-    android:paddingBottom="4dp">
+    android:paddingRight="4dp">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view_spinner"
@@ -23,15 +23,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
+            android:orientation="vertical"
+            android:visibility="gone">
 
-            android:orientation="vertical">
 
+            <!--gone-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@color/colorAccent"
-                android:padding="5dp">
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:visibility="gone">
 
 
                 <TextView
@@ -46,67 +49,9 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:weightSum="100">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="30"
-                    android:text="Product"
-                    android:textColor="@color/blue" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
 
-                    android:text=":"
-                    android:textColor="@color/blue" />
-
-                <TextView
-                    android:id="@+id/txtProduct"
-                    android:layout_width="0dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="70"
-                    android:ellipsize="end"
-                    android:maxLines="4" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:weightSum="100">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="30"
-                    android:text="Order ID"
-                    android:textColor="@color/blue" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text=":"
-                    android:textColor="@color/blue" />
-
-                <TextView
-                    android:id="@+id/txtOrderID"
-                    android:layout_width="0dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="70"
-                    android:ellipsize="end"
-                    android:maxLines="4" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -164,9 +109,9 @@
                     android:id="@+id/txtRate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:layout_weight="70"
                     android:ellipsize="end"
-                    android:layout_marginLeft="8dp"
                     android:maxLines="4" />
             </LinearLayout>
 
@@ -195,12 +140,12 @@
                     android:id="@+id/txtAmount"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="70"
                     android:layout_marginLeft="8dp"
+                    android:layout_weight="70"
                     android:ellipsize="end"
-                    android:textStyle="bold"
+                    android:maxLines="4"
                     android:textColor="@color/black"
-                    android:maxLines="4" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -230,9 +175,9 @@
                     android:id="@+id/txtBank"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:layout_weight="70"
                     android:ellipsize="end"
-                    android:layout_marginLeft="8dp"
                     android:maxLines="4" />
             </LinearLayout>
 
@@ -264,9 +209,9 @@
                     android:id="@+id/txtMobile"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:layout_weight="70"
                     android:ellipsize="end"
-                    android:layout_marginLeft="8dp"
                     android:maxLines="4" />
             </LinearLayout>
 
@@ -297,44 +242,12 @@
                     android:id="@+id/txtEmail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:layout_weight="70"
                     android:ellipsize="end"
-                    android:layout_marginLeft="8dp"
                     android:maxLines="4" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:weightSum="100">
-
-                <TextView
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="30"
-                    android:text="Date"
-                    android:textColor="@color/blue" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text=":"
-                    android:textColor="@color/blue" />
-
-
-                <TextView
-                    android:id="@+id/txtDate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="70"
-                    android:ellipsize="end"
-                    android:layout_marginLeft="8dp"
-                    android:maxLines="4" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -363,97 +276,200 @@
                     android:id="@+id/txtPaymentStatus"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:layout_weight="70"
                     android:ellipsize="end"
-                    android:layout_marginLeft="8dp"
-                    android:textStyle="bold"
+                    android:maxLines="4"
                     android:textColor="@color/black"
-                    android:maxLines="4" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:weightSum="100">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="30"
-                    android:text="Order Status"
-                    android:textColor="@color/blue" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text=":"
-                    android:textColor="@color/blue" />
-
-
-                <TextView
-                    android:id="@+id/txtOrderStatus"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="70"
-                    android:ellipsize="end"
-                    android:layout_marginLeft="8dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:maxLines="4" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:weightSum="100">
-
-                <TextView
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="30"
-                    android:text="Remark"
-                    android:textColor="@color/blue" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text=":"
-                    android:textColor="@color/blue" />
-
-
-                <TextView
-                    android:id="@+id/txtRemark"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="70"
-                    android:ellipsize="end"
-                    android:layout_marginLeft="8dp"
-                    android:maxLines="4" />
-
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btnUpdate"
-                style="@style/ButtonStyle"
-               android:textStyle="bold"
-                android:text="UPDATE"
-                />
 
 
 
         </LinearLayout>
 
 
-    </android.support.v7.widget.CardView>
+        <LinearLayout
 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:orientation="vertical"
+            android:padding="4dp"
+
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/txtProduct"
+                style="@style/TextViewStyle.Large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:text="Prd Name"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextStyle.Title" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/seperator" />
+
+            <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/textDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Date: "
+                style="@style/TextViewStyle.MediumRegular"
+                android:textColor="@color/dashboard_title" />
+
+
+            <TextView
+                android:id="@+id/txtDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textDate"
+                android:layout_marginLeft="5dp"
+                android:text="date"
+                style="@style/TextViewStyle.MediumRegular" />
+
+        </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:id="@+id/textTat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="TAT: "
+                    style="@style/TextViewStyle.MediumRegular"
+                    android:textColor="@color/dashboard_title" />
+
+
+                <TextView
+                    android:id="@+id/txtTat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/textTat"
+                    android:layout_marginLeft="5dp"
+                    android:text="5"
+                    style="@style/TextViewStyle.MediumRegular" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:id="@+id/textOrderId"
+                    style="@style/TextViewStyle.MediumRegular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Request Id:"
+                    android:textColor="@color/dashboard_title" />
+
+
+                <TextView
+                    android:id="@+id/txtOrderId"
+                    style="@style/TextViewStyle.MediumRegular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/textOrderId"
+                    android:text="0" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:id="@+id/textOrderStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Order Status:"
+                    style="@style/TextViewStyle.MediumRegular"
+                    android:textColor="@color/dashboard_title" />
+
+
+                <TextView
+                    android:id="@+id/txtOrderStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/textOrderStatus"
+                    android:layout_marginLeft="5dp"
+                    android:text="date"
+                    style="@style/TextViewStyle.MediumRegular" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:visibility="gone"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:id="@+id/texRemark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Remark:"
+                    style="@style/TextViewStyle.MediumRegular"
+                    android:textColor="@color/dashboard_title" />
+
+
+                <TextView
+                    android:id="@+id/txtRemark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/texRemark"
+                    android:layout_marginLeft="5dp"
+                    android:text="date"
+                    style="@style/TextViewStyle.MediumRegular" />
+
+            </RelativeLayout>
+
+
+            <Button
+                android:id="@+id/btnUpdate"
+                android:layout_margin="10dp"
+                style="@style/ButtonStyle"
+                android:text="UPDATE"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
 
 
 </LinearLayout>

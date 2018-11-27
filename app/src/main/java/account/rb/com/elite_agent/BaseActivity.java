@@ -1,10 +1,22 @@
 package account.rb.com.elite_agent;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -14,6 +26,7 @@ public class BaseActivity extends AppCompatActivity {
 
     //public Realm realm;
     ProgressDialog dialog;
+    CustomPopUpListener customPopUpListener;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,4 +77,115 @@ public class BaseActivity extends AppCompatActivity {
         String text = editText.getText().toString().trim();
         return !(text.isEmpty());
     }
+
+    public void getCustomToast(String strMessage) {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.layout_custom_toast,
+                (ViewGroup) findViewById(R.id.toast_layout_root));
+
+
+        TextView text = (TextView) layout.findViewById(R.id.txtMessage);
+        text.setText("" + strMessage);
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM, 0, 100);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+    }
+
+    public void openPopUp(final View view, String title, String desc, String positiveButtonName, String negativeButtonName, boolean isNegativeVisible, boolean isCancelable) {
+        try {
+            final Dialog dialog;
+            dialog = new Dialog(BaseActivity.this, R.style.CustomDialog);
+
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.layout_common_popup);
+
+            TextView tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);
+            tvTitle.setText(title);
+            TextView tvOk = (TextView) dialog.findViewById(R.id.tvOk);
+            tvOk.setText(positiveButtonName);
+
+            TextView tvCancel = (TextView) dialog.findViewById(R.id.tvCancel);
+            tvCancel.setText(negativeButtonName);
+            if (isNegativeVisible) {
+                tvCancel.setVisibility(View.VISIBLE);
+            } else {
+                tvCancel.setVisibility(View.GONE);
+            }
+
+            TextView txtMessage = (TextView) dialog.findViewById(R.id.txtMessage);
+            txtMessage.setText(desc);
+            ImageView ivCross = (ImageView) dialog.findViewById(R.id.ivCross);
+
+            dialog.setCancelable(isCancelable);
+            dialog.setCanceledOnTouchOutside(isCancelable);
+
+            Window dialogWindow = dialog.getWindow();
+            WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+            lp.width = lp.MATCH_PARENT;  // Width
+            lp.height = lp.WRAP_CONTENT; // Height
+            dialogWindow.setAttributes(lp);
+
+            dialog.show();
+            tvOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Close dialog
+                    if (customPopUpListener != null)
+                        customPopUpListener.onPositiveButtonClick(dialog, view);
+                }
+            });
+
+            tvCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Close dialog
+                    if (customPopUpListener != null)
+                        customPopUpListener.onCancelButtonClick(dialog, view);
+                }
+            });
+            ivCross.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Close dialog
+                    if (customPopUpListener != null)
+                        customPopUpListener.onCancelButtonClick(dialog, view);
+                }
+            });
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // region CustomPopup
+
+    public interface CustomPopUpListener {
+
+        void onPositiveButtonClick(Dialog dialog, View view);
+
+        void onCancelButtonClick(Dialog dialog, View view);
+
+    }
+
+    public void registerCustomPopUp(CustomPopUpListener customPopUpListener) {
+        if (customPopUpListener != null)
+            this.customPopUpListener = customPopUpListener;
+    }
+
+    //endregion
+
+    public void composeEmail(String addresses, String subject) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{addresses});
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+
+        startActivity(Intent.createChooser(intent, "Email via..."));
+    }
+
 }

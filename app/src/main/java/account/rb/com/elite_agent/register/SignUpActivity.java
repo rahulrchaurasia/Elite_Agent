@@ -5,10 +5,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
@@ -24,22 +29,36 @@ import account.rb.com.elite_agent.R;
 import account.rb.com.elite_agent.core.APIResponse;
 import account.rb.com.elite_agent.core.IResponseSubcriber;
 import account.rb.com.elite_agent.core.controller.register.RegisterController;
+import account.rb.com.elite_agent.core.model.IfscEntity;
 import account.rb.com.elite_agent.core.model.PincodeEntity;
+import account.rb.com.elite_agent.core.model.VerifyOTPEntity;
 import account.rb.com.elite_agent.core.requestmodel.AddUserRequestEntity;
+import account.rb.com.elite_agent.core.requestmodel.RegisterRequest;
 import account.rb.com.elite_agent.core.requestmodel.UpdateUserRequestEntity;
 import account.rb.com.elite_agent.core.response.AddUserResponse;
 import account.rb.com.elite_agent.core.response.GetOtpResponse;
+import account.rb.com.elite_agent.core.response.IfscCodeResponse;
 import account.rb.com.elite_agent.core.response.PincodeResponse;
 import account.rb.com.elite_agent.core.response.UpdateUserResponse;
+import account.rb.com.elite_agent.core.response.UserRegistrationResponse;
+import account.rb.com.elite_agent.core.response.VerifyUserRegisterResponse;
+import account.rb.com.elite_agent.utility.Constants;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SignUpActivity extends BaseActivity implements IResponseSubcriber, View.OnClickListener {
+public class SignUpActivity extends BaseActivity implements IResponseSubcriber, View.OnClickListener, View.OnFocusChangeListener {
 
-    EditText etelite_card_no, etpolicy_no, etMobile1, etEmail, etPassword, etconfirmPassword;
-    Button btnVerify, btnSubmit;
-    EditText etFullName, etMobile, etEmailOther, etPincode, etArea, etCity, etState;
+    EditText etFullName, etMobile, etPincode, etArea, etCity, etState, etEmail, etPassword, etconfirmPassword;
+    //region bank details
+    EditText etBankAcNo, etAccountType, etIfscCode, erMicrCode, etBankBranch, etBankCity, etBankName;
+    TextView txtSaving, txtCurrent;
+    IfscEntity ifscEntity;
+    public String ACCOUNT_TYPE = "SAVING";
+
+    //endregion
+
+    Button btnSubmit;
     TextView tvOk;
     EditText etOtp;
     Dialog dialog;
@@ -48,6 +67,7 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
     UpdateUserRequestEntity updateUserRequestEntity;
     String otp = "0000";
     LinearLayout llOtherInfo;
+    RegisterRequest registerRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,22 +78,13 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         getSupportActionBar().setHomeButtonEnabled(true);
         init_widets();
         setListener();
-        addUserRequestEntity = new AddUserRequestEntity();
-        updateUserRequestEntity = new UpdateUserRequestEntity();
-        llOtherInfo.setVisibility(View.GONE);
+         registerRequest = new RegisterRequest();
+//        addUserRequestEntity = new AddUserRequestEntity();
+//        updateUserRequestEntity = new UpdateUserRequestEntity();
+//        llOtherInfo.setVisibility(View.GONE);
     }
 
-    @Override
-    protected void onResume() {
-        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("otp"));
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
-    }
+   //region Method
 
     //region Broadcast Receiver
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -110,134 +121,329 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
 
     private void setListener() {
         btnSubmit.setOnClickListener(this);
-        btnVerify.setOnClickListener(this);
         etPincode.addTextChangedListener(pincodeTextWatcher);
+        etIfscCode.setOnFocusChangeListener(this);
     }
 
     private void init_widets() {
         llOtherInfo = (LinearLayout) findViewById(R.id.llOtherInfo);
-        etelite_card_no = (EditText) findViewById(R.id.etelite_card_no);
-        etpolicy_no = (EditText) findViewById(R.id.etpolicy_no);
-        etMobile1 = (EditText) findViewById(R.id.etMobile1);
+        etFullName = (EditText) findViewById(R.id.etFullName);
+        etMobile = (EditText) findViewById(R.id.etMobile);
+        etPincode = (EditText) findViewById(R.id.etPincode);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etconfirmPassword = (EditText) findViewById(R.id.etconfirmPassword);
-        btnVerify = (Button) findViewById(R.id.btnVerify);
-        btnSubmit = (Button) findViewById(R.id.btnSubmit);
-        etFullName = (EditText) findViewById(R.id.etFullName);
-        etMobile = (EditText) findViewById(R.id.etMobile);
-        etEmailOther = (EditText) findViewById(R.id.etEmailOther);
-        etPincode = (EditText) findViewById(R.id.etPincode);
+
+
         etArea = (EditText) findViewById(R.id.etArea);
         etCity = (EditText) findViewById(R.id.etCity);
         etState = (EditText) findViewById(R.id.etState);
+
+        //region bank details
+
+        etBankAcNo = (EditText) findViewById(R.id.etBankAcNo);
+        etAccountType = (EditText) findViewById(R.id.etAccountType);
+        etIfscCode = (EditText) findViewById(R.id.etIfscCode);
+        etIfscCode.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(15)});
+
+        erMicrCode = (EditText) findViewById(R.id.erMicrCode);
+        etBankBranch = (EditText) findViewById(R.id.etBankBranch);
+        etBankCity = (EditText) findViewById(R.id.etBankCity);
+        etBankName = (EditText) findViewById(R.id.etBankName);
+        txtSaving = (TextView) findViewById(R.id.txtSaving);
+        txtCurrent = (TextView) findViewById(R.id.txtCurrent);
+
+        btnSubmit = (Button) findViewById(R.id.btnSubmit);
+        //endregion
     }
+
+    private boolean validateRegistration() {
+        if (!isEmpty(etFullName)) {
+            etFullName.requestFocus();
+            etFullName.setError("Enter Name");
+            return false;
+        }
+
+        if (!isEmpty(etMobile)) {
+            etMobile.requestFocus();
+            etMobile.setError("Enter Mobile");
+            return false;
+        }
+        if (!isValidePhoneNumber(etMobile)) {
+            etMobile.requestFocus();
+            etMobile.setError("Enter Valid Mobile");
+            return false;
+        }
+        if (!isEmpty(etEmail)) {
+            etEmail.requestFocus();
+            etEmail.setError("Enter Email");
+            return false;
+        }
+        if (!isValideEmailID(etEmail)) {
+            etEmail.requestFocus();
+            etEmail.setError("Enter Valid Email");
+            return false;
+        }
+        if (!isEmpty(etPincode) && etPincode.getText().toString().length() != 6) {
+            etPincode.requestFocus();
+            etPincode.setError("Enter Pincode");
+            return false;
+        }
+        if (!isEmpty(etPassword)) {
+            etPassword.requestFocus();
+            etPassword.setError("Enter Password");
+            return false;
+        }
+        if (etPassword.getText().toString().trim().length() < 3) {
+            etPassword.requestFocus();
+            etPassword.setError("Minimum length should be 3");
+            return false;
+        }
+        if (!isEmpty(etconfirmPassword)) {
+            etconfirmPassword.requestFocus();
+            etconfirmPassword.setError("Confirm Password");
+            return false;
+        }
+        if (!etPassword.getText().toString().equals(etconfirmPassword.getText().toString())) {
+            etconfirmPassword.requestFocus();
+            etconfirmPassword.setError("Password Mismatch");
+            return false;
+        }
+
+        if (etBankAcNo.getText().toString().isEmpty()) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                etBankAcNo.requestFocus();
+                etBankAcNo.setError("Enter Bank Account No");
+                etBankAcNo.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                return false;
+            } else {
+                etBankAcNo.requestFocus();
+                etBankAcNo.setError("Enter Bank Account No");
+                return false;
+            }
+        }
+        if (etIfscCode.getText().toString().isEmpty()) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                etIfscCode.requestFocus();
+                etIfscCode.setError("Enter Bank IFSC");
+                etIfscCode.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                return false;
+            } else {
+                etIfscCode.requestFocus();
+                etIfscCode.setError("Enter Bank IFSC");
+                return false;
+            }
+        }
+        if (erMicrCode.getText().toString().isEmpty()) {
+
+
+            erMicrCode.requestFocus();
+            erMicrCode.setError("Enter Bank MICR");
+            return false;
+
+        }
+
+        if (etBankName.getText().toString().isEmpty()) {
+
+
+            etBankName.requestFocus();
+            etBankName.setError("Enter Bank Name");
+            return false;
+
+        }
+        if (etBankBranch.getText().toString().isEmpty()) {
+
+
+            etBankBranch.requestFocus();
+            etBankBranch.setError("Enter Bank Branck");
+            return false;
+
+        }
+        if (etBankCity.getText().toString().isEmpty()) {
+
+
+            etBankCity.requestFocus();
+            etBankCity.setError("Enter Bank City");
+            return false;
+        }
+
+
+        return true;
+    }
+
+    private void showOtpAlert () {
+
+        try {
+
+            dialog = new Dialog(SignUpActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.otp_dialog);
+            TextView tvOk = (TextView) dialog.findViewById(R.id.tvOk);
+            final TextView  txtOTPMessage = (TextView) dialog.findViewById(R.id.txtOTPMessage);
+            final TextView tvTime = (TextView) dialog.findViewById(R.id.tvTime);
+            TextView tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);
+            tvTitle.setText("Enter OTP sent on : " + etMobile.getText().toString());
+            TextView resend = (TextView) dialog.findViewById(R.id.tvResend);
+            etOtp = (EditText) dialog.findViewById(R.id.etOtp);
+            dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(false);
+            Window dialogWindow = dialog.getWindow();
+            WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+            lp.width = lp.MATCH_PARENT;
+
+            lp.height = lp.WRAP_CONTENT; // Height
+            dialogWindow.setAttributes(lp);
+
+            txtOTPMessage.setText("");
+            txtOTPMessage.setVisibility(View.GONE);
+
+            dialog.show();
+            tvOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // Close dialog
+                    if (etOtp.getText().toString().equals("0000") || etOtp.getText().toString().equals(otp)) {
+
+                        etMobile.setText(etMobile.getText().toString());
+                        dialog.dismiss();
+                        setRegisterRequest(otp);
+
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Invalid OTP", Toast.LENGTH_SHORT).show();
+                        txtOTPMessage.setText("Invalid OTP");
+                        txtOTPMessage.setVisibility(View.VISIBLE);
+                    }
+
+
+                }
+            });
+
+            resend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    etOtp.setText("");
+                    otp = "";
+                    showDialog("Re-sending otp...");
+                    new RegisterController(SignUpActivity.this).verifyOTPTegistration(etEmail.getText().toString(), etMobile.getText().toString(), "", SignUpActivity.this);
+                }
+            });
+
+            new CountDownTimer(60000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    tvTime.setText((millisUntilFinished / 1000) + " seconds remaining");
+                }
+
+                @Override
+                public void onFinish() {
+                    tvTime.setText("");
+                    // dialog.dismiss();
+                }
+            }.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setRegisterRequest (String strOTP){
+
+
+        registerRequest.setOtp("" + strOTP);
+        registerRequest.setAgent_name("" + etFullName.getText());
+        registerRequest.setEmailid("" + etEmail.getText());
+        registerRequest.setMobile("" + etMobile.getText());
+
+        registerRequest.setPincode("" + etPincode.getText());
+        registerRequest.setState("" + etState.getText());
+        registerRequest.setArea("" + etArea.getText());
+        registerRequest.setCity("" + etCity.getText());
+
+
+
+
+        showDialog();
+        new RegisterController(this).saveUserRegistration(registerRequest, SignUpActivity.this);
+    }
+
+    //endregion
+
+
+
+    //region event
+
+
 
     @Override
     public void onClick(View view) {
+
+        Constants.hideKeyBoard(view, SignUpActivity.this);
         switch (view.getId()) {
-            case R.id.btnVerify:
+//            case R.id.btnVerify:
+//
+//                //region Validation
+//
+//                if (!isValideEmailID(etEmail)) {
+//                    etEmail.requestFocus();
+//                    etEmail.setError("Enter Email");
+//                    return;
+//                }
+//                if (!isEmpty(etPassword)) {
+//                    etPassword.requestFocus();
+//                    etPassword.setError("Enter Password");
+//                    return;
+//                }
+//                if (!isEmpty(etconfirmPassword)) {
+//                    etconfirmPassword.requestFocus();
+//                    etconfirmPassword.setError("Confirm Password");
+//                    return;
+//                }
+//                if (!etPassword.getText().toString().equals(etconfirmPassword.getText().toString())) {
+//                    etconfirmPassword.requestFocus();
+//                    etconfirmPassword.setError("Password Mismatch");
+//                    return;
+//                }
+//                //endregion
+//
 
-                //region Validation
-                if (!isEmpty(etelite_card_no)) {
-                    etelite_card_no.requestFocus();
-                    etelite_card_no.setError("Enter Card Number");
-                    return;
-                }
-                if (!isEmpty(etpolicy_no)) {
-                    etpolicy_no.requestFocus();
-                    etpolicy_no.setError("Enter Policy number");
-                    return;
-                }
-                if (!isValidePhoneNumber(etMobile1)) {
-                    etMobile1.requestFocus();
-                    etMobile1.setError("Enter Mobile");
-                    return;
-                }
-                if (!isValideEmailID(etEmail)) {
-                    etEmail.requestFocus();
-                    etEmail.setError("Enter Email");
-                    return;
-                }
-                if (!isEmpty(etPassword)) {
-                    etPassword.requestFocus();
-                    etPassword.setError("Enter Password");
-                    return;
-                }
-                if (!isEmpty(etconfirmPassword)) {
-                    etconfirmPassword.requestFocus();
-                    etconfirmPassword.setError("Confirm Password");
-                    return;
-                }
-                if (!etPassword.getText().toString().equals(etconfirmPassword.getText().toString())) {
-                    etconfirmPassword.requestFocus();
-                    etconfirmPassword.setError("Password Mismatch");
-                    return;
-                }
-                //endregion
 
-                addUserRequestEntity.setElite_card_no(etelite_card_no.getText().toString());
-                addUserRequestEntity.setPolicy_no(etpolicy_no.getText().toString());
-                addUserRequestEntity.setEmail_address(etEmail.getText().toString());
-                addUserRequestEntity.setMobile_no(etMobile1.getText().toString());
-                addUserRequestEntity.setPassword(etPassword.getText().toString());
-
-                showOtpAlert();
-                showDialog();
-                new RegisterController(this).getOtp(etEmail.getText().toString(), etMobile1.getText().toString(), "", this);
-                break;
+            //             break;
             case R.id.btnSubmit:
-                if (!isEmpty(etFullName)) {
-                    etFullName.requestFocus();
-                    etFullName.setError("Enter Name");
-                    return;
-                }
-                if (!isEmpty(etPincode) && etPincode.getText().toString().length() != 6) {
-                    etPincode.requestFocus();
-                    etPincode.setError("Enter Pincode");
-                    return;
-                }
-                if (!isValidePhoneNumber(etMobile)) {
-                    etMobile.requestFocus();
-                    etMobile.setError("Enter Mobile");
-                    return;
-                }
-                if (!isValideEmailID(etEmailOther)) {
-                    etEmailOther.requestFocus();
-                    etEmailOther.setError("Enter Email");
-                    return;
-                }
-                updateUserRequestEntity.setEmail(etEmailOther.getText().toString());
-                updateUserRequestEntity.setName(etFullName.getText().toString());
-                updateUserRequestEntity.setOtp(Integer.parseInt(otp));
-                updateUserRequestEntity.setMobile(etMobile.getText().toString());
-                updateUserRequestEntity.setPincode(etPincode.getText().toString());
 
-                if (pincodeEntity != null) {
-                    updateUserRequestEntity.setState("" + pincodeEntity.getState_id());
-                    updateUserRequestEntity.setCity("" + pincodeEntity.getCity_id());
-                    updateUserRequestEntity.setArea("" + pincodeEntity.getPostname());
-                    updateUserRequestEntity.setAddress("" + pincodeEntity.getState_name());
+
+                if (validateRegistration() == true) {
+                    showDialog();
+                    new RegisterController(SignUpActivity.this).verifyOTPTegistration(etEmail.getText().toString(), etMobile.getText().toString(), "", SignUpActivity.this);
+
                 }
-                updateUserRequestEntity.setRto("1");
-                showDialog();
-                new RegisterController(this).updateUser(updateUserRequestEntity, this);
 
                 break;
+
+//                updateUserRequestEntity.setName(etFullName.getText().toString());
+//                updateUserRequestEntity.setOtp(Integer.parseInt(otp));
+//                updateUserRequestEntity.setMobile(etMobile.getText().toString());
+//                updateUserRequestEntity.setPincode(etPincode.getText().toString());
+//
+//                if (pincodeEntity != null) {
+//                    updateUserRequestEntity.setState("" + pincodeEntity.getState_id());
+//                    updateUserRequestEntity.setCity("" + pincodeEntity.getCity_id());
+//                    updateUserRequestEntity.setArea("" + pincodeEntity.getPostname());
+//                    updateUserRequestEntity.setAddress("" + pincodeEntity.getState_name());
+//                }
+//                updateUserRequestEntity.setRto("1");
+//                showDialog();
+//                new RegisterController(this).updateUser(updateUserRequestEntity, this);
+
+
         }
     }
 
     @Override
     public void OnSuccess(APIResponse response, String message) {
-        if (response instanceof GetOtpResponse) {
-            cancelDialog();
-            if (response.getStatus_code() == 0) {
-                this.otp = "" + ((GetOtpResponse) response).getData();
-            }
-        } else if (response instanceof AddUserResponse) {
-            cancelDialog();
-            Toast.makeText(this, "" + response.getMessage(), Toast.LENGTH_SHORT).show();
-        } else if (response instanceof PincodeResponse) {
+        if (response instanceof PincodeResponse) {
             cancelDialog();
             if (response.getStatus_code() == 0) {
 
@@ -248,10 +454,49 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
                     etState.setText("" + pincodeEntity.getState_name());
                 }
             }
-        } else if (response instanceof UpdateUserResponse) {
+        } else if (response instanceof VerifyUserRegisterResponse) {
+
+            if (response.getStatus_code() == 0) {
+                VerifyOTPEntity verifyOTPEntity = ((VerifyUserRegisterResponse) response).getData();
+                if (verifyOTPEntity.getSavedStatus() == 1) {
+                    showOtpAlert();
+                } else if (verifyOTPEntity.getSavedStatus() == 2) {
+                    getCustomToast(response.getMessage());
+                }
+            }
+        } else if (response instanceof IfscCodeResponse) {
             cancelDialog();
             if (response.getStatus_code() == 0) {
-                Toast.makeText(this, "" + response.getMessage(), Toast.LENGTH_SHORT).show();
+                Constants.hideKeyBoard(etPincode, this);
+                if (((IfscCodeResponse) response).getMasterData() != null) {
+                    if (((IfscCodeResponse) response).getMasterData().size() > 0) {
+                        ifscEntity = ((IfscCodeResponse) response).getMasterData().get(0);
+
+                        etIfscCode.setText("" + ifscEntity.getIFSCCode());
+                        if (ifscEntity.getMICRCode() != null)
+                            erMicrCode.setText("" + ifscEntity.getMICRCode());
+                        etBankName.setText("" + ifscEntity.getBankName());
+                        etBankBranch.setText("" + ifscEntity.getBankBran());
+                        etBankCity.setText("" + ifscEntity.getCityName());
+
+                        if (!erMicrCode.getText().toString().isEmpty()) {
+
+
+                            registerRequest.setMICR_code(erMicrCode.getText().toString());
+                            registerRequest.setBank_name(etBankName.getText().toString());
+                            registerRequest.setBank_branch_name(etBankBranch.getText().toString());
+                            registerRequest.setCity(etBankCity.getText().toString());
+                        }
+                    }
+                }
+            }
+        }else if (response instanceof UserRegistrationResponse) {
+
+            if (response.getStatus_code() == 0) {
+
+                // this.finish();
+                //Toast.makeText(this, "Data Save Successfully" , Toast.LENGTH_SHORT).show();
+                getCustomToast("Data Save Successfully");
                 this.finish();
             }
         }
@@ -263,68 +508,21 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         Toast.makeText(this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
-    private void showOtpAlert() {
-
-        try {
-
-            dialog = new Dialog(SignUpActivity.this);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//            dialog.setContentView(R.layout.otp_dialog);
-//            tvOk = (TextView) dialog.findViewById(R.id.tvOk);
-//            TextView tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);
-//            tvTitle.setText("Enter OTP sent on : " + etMobile1.getText().toString());
-//            TextView resend = (TextView) dialog.findViewById(R.id.tvResend);
-//            etOtp = (EditText) dialog.findViewById(R.id.etOtp);
-            dialog.setCancelable(true);
-            dialog.setCanceledOnTouchOutside(false);
-
-            Window dialogWindow = dialog.getWindow();
-            WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-            lp.width = lp.MATCH_PARENT;
-            ; // Width
-            lp.height = lp.WRAP_CONTENT; // Height
-            dialogWindow.setAttributes(lp);
-
-            dialog.show();
-            tvOk.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    // Close dialog
-                    if (etOtp.getText().toString().equals("0000") || etOtp.getText().toString().equals(otp)) {
-                        etMobile.setText(etMobile1.getText().toString());
-                        etEmailOther.setText(etEmail.getText().toString());
-                        Toast.makeText(SignUpActivity.this, "Otp Verified Success", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                        llOtherInfo.setVisibility(View.VISIBLE);
-                        addUser();
-                    } else {
-                        Toast.makeText(SignUpActivity.this, "Invalid OTP", Toast.LENGTH_SHORT).show();
-                    }
-
-
-                }
-            });
-
-//            resend.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    etOtp.setText("");
-//                    showDialog("Re-sending otp...");
-//                    new RegisterController(SignUpActivity.this).getOtp(etEmail.getText().toString(), etMobile1.getText().toString(), "", SignUpActivity.this);
-//                }
-//            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Override
+    protected void onResume() {
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("otp"));
+        super.onResume();
     }
 
-    private void addUser() {
-        showDialog();
-        new RegisterController(this).addUser(addUserRequestEntity, this);
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 
-    //region textwatcher
+
+
+    //region textwatcher and Onfocus Listener
     TextWatcher pincodeTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -348,5 +546,21 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
 
         }
     };
+
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        switch (view.getId()) {
+            case R.id.etIfscCode:
+                if (!hasFocus) {
+                    if (etIfscCode.getText().length() > 3) {
+                        showDialog("Fetching Bank Details...");
+                        new RegisterController(SignUpActivity.this).getIFSC(etIfscCode.getText().toString(), SignUpActivity.this);
+                    }
+                }
+                break;
+        }
+    }
+    //endregion
+
     //endregion
 }

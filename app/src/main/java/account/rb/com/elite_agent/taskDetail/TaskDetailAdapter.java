@@ -1,5 +1,6 @@
 package account.rb.com.elite_agent.taskDetail;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -21,17 +22,17 @@ import account.rb.com.elite_agent.core.model.TaskEntity;
 
 public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailAdapter.TaskDetailItem> {
 
-    Fragment mContext;
+    Activity mContext;
     List<TaskEntity> lsTaskDetail;
 
-    public TaskDetailAdapter(Fragment mContext, List<TaskEntity> lsTaskDetail) {
+    public TaskDetailAdapter(Activity mContext, List<TaskEntity> lsTaskDetail) {
         this.mContext = mContext;
         this.lsTaskDetail = lsTaskDetail;
     }
 
     public class TaskDetailItem extends RecyclerView.ViewHolder {
 
-        TextView txtCustName, txtProduct, txtOrderID,
+        TextView txtCustName, txtProduct, txtOrderId,txtTat,
                 txtQty, txtRate, txtAmount,
                 txtBank, txtMobile, txtPaymentStatus, txtOrderStatus,
                 txtEmail, txtDate, txtRemark;
@@ -45,8 +46,8 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailAdapter.Ta
             btnUpdate = (Button) itemView.findViewById(R.id.btnUpdate);
             txtCustName = (TextView) itemView.findViewById(R.id.txtCustName);
             txtProduct = (TextView) itemView.findViewById(R.id.txtProduct);
-            txtOrderID = (TextView) itemView.findViewById(R.id.txtOrderID);
-
+            txtOrderId = (TextView) itemView.findViewById(R.id.txtOrderId);
+            txtTat  = (TextView) itemView.findViewById(R.id.txtTat);
 
             txtQty = (TextView) itemView.findViewById(R.id.txtQty);
             txtRate = (TextView) itemView.findViewById(R.id.txtRate);
@@ -81,7 +82,8 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailAdapter.Ta
 
         holder.txtCustName.setText("" + taskEntity.getCust_name());
         holder.txtProduct.setText("" + taskEntity.getProduct_name());
-        holder.txtOrderID.setText("" + taskEntity.getId());
+        holder.txtOrderId.setText("" + taskEntity.getId());
+        holder.txtTat.setText("" + taskEntity.getTat());
 
         holder.txtQty.setText("" + taskEntity.getQuantity());
         holder.txtRate.setText("" + taskEntity.getRate());
@@ -110,7 +112,7 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailAdapter.Ta
             @Override
             public void onClick(View v) {
 
-                ((TaskDetailFragment) mContext).redirectToTask(taskEntity);
+                ((CurrentTaskActivity) mContext).redirectToTask(taskEntity);
             }
         });
 

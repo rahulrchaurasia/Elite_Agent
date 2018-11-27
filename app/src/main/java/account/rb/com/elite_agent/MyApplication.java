@@ -4,6 +4,7 @@ import android.app.Application;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 
 public class MyApplication extends Application {
@@ -17,5 +18,11 @@ public class MyApplication extends Application {
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(config);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/oxygenlight.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
     }
 }

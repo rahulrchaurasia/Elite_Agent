@@ -8,12 +8,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import account.rb.com.elite_agent.BaseActivity;
+import account.rb.com.elite_agent.HomeActivity;
 import account.rb.com.elite_agent.R;
 import account.rb.com.elite_agent.core.APIResponse;
 import account.rb.com.elite_agent.core.IResponseSubcriber;
-import account.rb.com.elite_agent.core.controller.product.ProductController;
 import account.rb.com.elite_agent.database.DataBaseController;
-import account.rb.com.elite_agent.login.loginActivity;
+import account.rb.com.elite_agent.login.LoginActivity;
 import account.rb.com.elite_agent.utility.Constants;
 
 public class SplashScreenActivity extends BaseActivity implements IResponseSubcriber {
@@ -36,11 +36,19 @@ public class SplashScreenActivity extends BaseActivity implements IResponseSubcr
 
         prefManager = new PrefManager(this);
 
+
+
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
-                startActivity(new Intent(SplashScreenActivity.this, loginActivity.class));
+                if(prefManager.getUserData() != null)
+                {
+                    startActivity(new Intent(SplashScreenActivity.this, HomeActivity.class));
+                }else{
+                    startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
+                }
+
             }
         }, Constants.SPLASH_DISPLAY_LENGTH);
 

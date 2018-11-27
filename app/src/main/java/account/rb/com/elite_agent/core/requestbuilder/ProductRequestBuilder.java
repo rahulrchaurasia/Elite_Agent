@@ -3,6 +3,7 @@ package account.rb.com.elite_agent.core.requestbuilder;
 import account.rb.com.elite_agent.core.RetroRequestBuilder;
 import account.rb.com.elite_agent.core.response.AgentCommonResponse;
 import account.rb.com.elite_agent.core.response.CommonResponse;
+import account.rb.com.elite_agent.core.response.NotificationResponse;
 import account.rb.com.elite_agent.core.response.OrderResponse;
 
 import java.util.HashMap;
@@ -42,6 +43,8 @@ public class ProductRequestBuilder extends RetroRequestBuilder {
         Call<OrderSummaryResponse> orderSummary(@Body HashMap<String, String> body);
 
 
+        @POST("/api/get-notification")
+        Call<NotificationResponse> getNotification(@Body HashMap<String, String> body);   //used
 
 
     }

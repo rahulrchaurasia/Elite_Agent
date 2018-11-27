@@ -37,6 +37,10 @@ public class TaskEntity {
     private String transaction_id;
     private String cust_name;
 
+
+
+    private String tat;
+
     public int getId() {
         return id;
     }
@@ -163,5 +167,13 @@ public class TaskEntity {
 
     public void setCust_name(String cust_name) {
         this.cust_name = cust_name;
+    }
+
+    public String getTat() {
+        return tat;
+    }
+
+    public void setTat(String tat) {
+        this.tat = tat;
     }
 }

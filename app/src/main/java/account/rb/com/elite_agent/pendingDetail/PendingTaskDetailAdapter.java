@@ -1,5 +1,6 @@
 package account.rb.com.elite_agent.pendingDetail;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -23,21 +24,23 @@ import account.rb.com.elite_agent.taskDetail.TaskDetailFragment;
 
 public class PendingTaskDetailAdapter extends RecyclerView.Adapter<PendingTaskDetailAdapter.TaskDetailItem> {
 
-    Fragment mContext;
+    Activity mContext;
     List<TaskEntity> lsTaskDetail;
+    int TASK_TYPE;
 
-    public PendingTaskDetailAdapter(Fragment mContext, List<TaskEntity> lsTaskDetail) {
+    public PendingTaskDetailAdapter(Activity mContext, List<TaskEntity> lsTaskDetail, int task_Type) {
         this.mContext = mContext;
         this.lsTaskDetail = lsTaskDetail;
+        TASK_TYPE = task_Type;
     }
 
     public class TaskDetailItem extends RecyclerView.ViewHolder {
 
-        TextView txtCustName, txtProduct, txtOrderID,
+        TextView txtCustName, txtProduct, txtOrderID,txtTat,
                 txtQty, txtRate, txtAmount,
                 txtBank, txtMobile, txtPaymentStatus, txtOrderStatus,
                 txtEmail, txtDate, txtRemark;
-        Button btnAccept,btnReject;
+        Button btnAccept, btnReject;
         LinearLayout lyParent;
 
         public TaskDetailItem(View itemView) {
@@ -48,7 +51,8 @@ public class PendingTaskDetailAdapter extends RecyclerView.Adapter<PendingTaskDe
             btnReject = (Button) itemView.findViewById(R.id.btnReject);
             txtCustName = (TextView) itemView.findViewById(R.id.txtCustName);
             txtProduct = (TextView) itemView.findViewById(R.id.txtProduct);
-            txtOrderID = (TextView) itemView.findViewById(R.id.txtOrderID);
+            txtOrderID = (TextView) itemView.findViewById(R.id.txtOrderId);
+            txtTat  = (TextView) itemView.findViewById(R.id.txtTat);
 
 
             txtQty = (TextView) itemView.findViewById(R.id.txtQty);
@@ -64,6 +68,13 @@ public class PendingTaskDetailAdapter extends RecyclerView.Adapter<PendingTaskDe
             txtDate = (TextView) itemView.findViewById(R.id.txtDate);
             txtRemark = (TextView) itemView.findViewById(R.id.txtRemark);
 
+            if (TASK_TYPE != 0) {
+                btnAccept.setVisibility(View.GONE);
+                btnReject.setVisibility(View.GONE);
+            } else {
+                btnReject.setVisibility(View.VISIBLE);
+                btnAccept.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -85,6 +96,7 @@ public class PendingTaskDetailAdapter extends RecyclerView.Adapter<PendingTaskDe
         holder.txtCustName.setText("" + taskEntity.getCust_name());
         holder.txtProduct.setText("" + taskEntity.getProduct_name());
         holder.txtOrderID.setText("" + taskEntity.getId());
+       holder.txtTat.setText("" + taskEntity.getTat());
 
         holder.txtQty.setText("" + taskEntity.getQuantity());
         holder.txtRate.setText("" + taskEntity.getRate());
@@ -98,6 +110,7 @@ public class PendingTaskDetailAdapter extends RecyclerView.Adapter<PendingTaskDe
         holder.txtEmail.setText("" + taskEntity.getEmail());
         holder.txtDate.setText("" + taskEntity.getPayment_date());
         holder.txtRemark.setText("" + taskEntity.getPayment_remark());
+
 
         if (taskEntity.getStatus_id().equals("1")) {
             holder.txtOrderStatus.setTextColor(Color.parseColor("#009EE3"));
@@ -113,20 +126,18 @@ public class PendingTaskDetailAdapter extends RecyclerView.Adapter<PendingTaskDe
             @Override
             public void onClick(View v) {
 
-              ((PendingTaskDetailFragment) mContext).redirectToPendingTask(taskEntity,1);
+                ((PendingActivity) mContext).redirectToPendingTask(taskEntity, 1);
 
-             //   Toast.makeText(mContext.getActivity(),"Data",Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(mContext.getActivity(),"Data",Toast.LENGTH_SHORT).show();
             }
         });
 
         holder.btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((PendingTaskDetailFragment) mContext).redirectToPendingTask(taskEntity,2);
+                ((PendingActivity) mContext).redirectToPendingTask(taskEntity, 2);
             }
         });
-
-
 
 
     }

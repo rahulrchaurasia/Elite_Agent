@@ -18,6 +18,7 @@ import account.rb.com.elite_agent.core.controller.register.RegisterController;
 import account.rb.com.elite_agent.core.model.UserEntity;
 import account.rb.com.elite_agent.core.response.CommonResponse;
 import account.rb.com.elite_agent.database.DataBaseController;
+import account.rb.com.elite_agent.splash.PrefManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +30,7 @@ public class ChangePasswordFragment extends BaseFragment implements View.OnClick
     Button btnSubmit;
 
     DataBaseController dataBaseController;
+    PrefManager prefManager;
     UserEntity loginEntity;
     public ChangePasswordFragment() {
         // Required empty public constructor
@@ -44,7 +46,8 @@ public class ChangePasswordFragment extends BaseFragment implements View.OnClick
         initialize_Widgets(view);
 
         dataBaseController = new DataBaseController(getActivity());
-        loginEntity = dataBaseController.getUserData();
+        prefManager = new PrefManager(getActivity());
+        loginEntity = prefManager.getUserData();
         return view;
     }
 

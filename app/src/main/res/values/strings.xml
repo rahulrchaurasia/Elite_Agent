@@ -2,6 +2,19 @@
     <string name="app_name">Elite-Agent</string>
     <string name="title_activity_main">MainActivity</string>
 
+    <string name="signup">Not a Member? <b><u>Sign up now!</u></b></string>
+    <string name="click_here"> <b><u>Click Here!!</u></b></string>
+    <string name="register_here"> <b><u>Register Here!</u></b></string>
+    <string name="forgotPwd"><u><i>Forgot Password? .</i></u></string>
+
+
+    <string name="accept_msg">"Are you sure want to Accept the task.</string>
+    <string name="reject_msg">"Are you sure want to Reject the task.</string>
+
+    <string name="supp_Calling">Do you want to call Elite Support Team</string>
+    <string name="call_number">9702943935</string>
+    <string name="email">rahulrchaurasia@gmail.com</string>
+
 
     <string name="title_activity_product">Home</string>
     <string name="title_activity_home">Home</string>
@@ -24,7 +37,7 @@
         completions."
     </string>
     <string name="title_activity_login">LOGIN</string>
-    <string name="title_activity_sign_up">Register</string>
+    <string name="title_activity_sign_up">Registertion</string>
     <string name="title_activity_product_detail">Home</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_payment">Payment</string>
@@ -33,4 +46,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_order_detail">Order </string>
     <string name="title_activity_forgot_password">Forgot Password</string>
+    <string name="title_activity_pending">Pending Order</string>
+    <string name="title_activity_current_task">Current Order</string>
+    <string name="title_activity_email_us">Email Us</string>
+    <string name="title_activity_notification">Notification</string>
 </resources>

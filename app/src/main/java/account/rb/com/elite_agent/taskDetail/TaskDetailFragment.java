@@ -30,6 +30,7 @@ import account.rb.com.elite_agent.core.response.AgentCommonResponse;
 import account.rb.com.elite_agent.core.response.CommonResponse;
 import account.rb.com.elite_agent.core.response.TaskDetailResponse;
 import account.rb.com.elite_agent.database.DataBaseController;
+import account.rb.com.elite_agent.splash.PrefManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +40,7 @@ public class TaskDetailFragment extends BaseFragment implements IResponseSubcrib
 
     UserEntity loginEntity;
     DataBaseController dataBaseController;
+    PrefManager prefManager;
 
     RecyclerView rvOrderDtl;
     List<TaskEntity> lsTaskDetail;
@@ -59,7 +61,10 @@ public class TaskDetailFragment extends BaseFragment implements IResponseSubcrib
         View view = inflater.inflate(R.layout.fragment_task_detailragment, container, false);
         initilize(view);
         dataBaseController = new DataBaseController(getActivity());
-        loginEntity = dataBaseController.getUserData();
+        prefManager = new PrefManager(getActivity());
+        loginEntity = prefManager.getUserData();
+
+        loginEntity = prefManager.getUserData();
 
         statuslist = dataBaseController.getOrderStatusList();
         statuslist.add(0, "Select");
@@ -88,7 +93,7 @@ public class TaskDetailFragment extends BaseFragment implements IResponseSubcrib
 
                 //Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                 lsTaskDetail = ((TaskDetailResponse) response).getData();
-                mAdapter = new TaskDetailAdapter(TaskDetailFragment.this, lsTaskDetail);
+               // mAdapter = new TaskDetailAdapter(TaskDetailFragment.this, lsTaskDetail);
                 rvOrderDtl.setAdapter(mAdapter);
 
             } else {

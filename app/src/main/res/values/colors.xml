@@ -2,19 +2,24 @@
 <resources>
 
 
-    <color name="colorPrimaryDark">#a91111</color>
-    <color name="colorPrimary">#ed1c24</color>
-    <color name="primary_light">#FFCDD2</color>
+    <!--<color name="colorPrimaryDark">#a91111</color>-->
+    <!--<color name="colorPrimary">#ed1c24</color>-->
+    <!--<color name="colorAccent">#0288D1</color>-->
 
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796b</color>
+    <color name="colorPrimaryLight">#b2dfdb</color>
+    <color name="colorAccent">#009688</color>
+
+    <color name="primary_light">#FFCDD2</color>
 
 
     <color name="primary_color">#ed1c24</color>
     <!--<color name="colorPrimary">#009EE3</color>-->
     <!--<color name="colorPrimaryDark">#01579B</color>-->
     <!--<color name="primary_light">#FFCDD2</color>-->
-    <color name="colorAccent">#0288D1</color>
-    <color name="colorPrimaryRed">#ed1c24</color>
 
+    <color name="colorPrimaryRed">#ed1c24</color>
 
 
     <color name="darkBlue">#1565c0</color>
@@ -23,10 +28,12 @@
     <color name="header_text_color">#6c747c</color>
     <color name="secondary_text_color">#9ba0a6</color>
     <color name="tab_color">#00476f</color>
-    <color name="button_color">@color/colorPrimary</color>
+
+    <color name="button_color">#ed1c24</color>
     <color name="bg_light">#eaeff7</color>
     <color name="blue">#005faf</color>
-
+    <color name="bg_dashboard">#f5f5f5</color>
+    <color name="off_white">#fafafa</color>
 
     <!--mintpro-->
     <color name="background">#FFEFF3F6</color>
@@ -36,6 +43,7 @@
     <color name="seperator">#E1DEDE</color>
     <color name="search_gray">#bcbcbc</color>
     <color name="black">#212121</color>
+    <color name="dashboard_title">#3a4147</color>
 
     <!--RBA-->
     <color name="white">#ffffff</color>
@@ -44,6 +52,11 @@
     <color name="filter_bar_title_selected">#5a5a5a</color>
     <color name="back_button_color">#5a5a5a</color>
     <color name="buttonBackground">#ee5e35</color>
+    <color name="uvv_black">#ff000000</color>
+    <color name="orange">#FFA500</color>
+    <color name="darkorange">#FF8C00</color>
+
+    <color name="green_light">#7db142</color>
     <color name="green_descent">#42ceb2</color>
     <color name="offer_info_white">#DDFFFFFF</color>
     <color name="alpha_white">#26ffffff</color>
@@ -51,4 +64,25 @@
     <!--<color name="vector_blue">#11408b</color>-->
     <color name="vector_blue">#646566</color>
     <color name="red_descent">#de6d75</color>
+    <color name="lightBlue">#3ab2d4</color>
+    <color name="blue_descent">#4b76c2</color>
+
+    <color name="holo_red_dark">#ffcc0000</color>
+    <color name="red_light">#ff7777</color>
+    <color name="uvv_green">#ff50b100</color>
+
+
+    <color name="red_nav">#D3332B</color>
+
+
+
+    <color name="uvv_light_gray">#ffF0F0F0</color>
+    <color name="uvv_gray">#ffbbbbbb</color>
+    <color name="edittext_border">#cfcfcf</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="uvv_titlebar_bg">#7f000000</color>
+    <color name="colorPrimary_inspect">#3F51B5</color>
+    <color name="colorPrimaryDark_inspect">#303F9F</color>
+    <color name="colorAccent_inspect">#FF4081</color>
+
 </resources>

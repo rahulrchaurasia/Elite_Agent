@@ -28,6 +28,7 @@ import account.rb.com.elite_agent.core.model.LoginEntity;
 import account.rb.com.elite_agent.core.model.UserEntity;
 import account.rb.com.elite_agent.core.response.OrderResponse;
 import account.rb.com.elite_agent.database.DataBaseController;
+import account.rb.com.elite_agent.splash.PrefManager;
 
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ import java.util.List;
  */
 public class ProductFragment extends BaseFragment implements View.OnClickListener, IResponseSubcriber {
 
-
+    PrefManager prefManager;
    // Spinner spCategory, spSubCategory, spProduct;
     List<String> CategorylList, SubCategoryList, ProductList;
     ArrayAdapter<String> categoryAdapter, subCategoryAdapter, ProductAdapter;
@@ -64,7 +65,8 @@ public class ProductFragment extends BaseFragment implements View.OnClickListene
         initialize_Widgets(view);
 
         dataBaseController = new DataBaseController(getActivity());
-        loginEntity = dataBaseController.getUserData();
+        prefManager = new PrefManager(getActivity());
+        loginEntity = prefManager.getUserData();
 
 
         return view;

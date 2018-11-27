@@ -22,14 +22,12 @@ import account.rb.com.elite_agent.R;
 import account.rb.com.elite_agent.core.APIResponse;
 import account.rb.com.elite_agent.core.IResponseSubcriber;
 import account.rb.com.elite_agent.core.controller.register.RegisterController;
-import account.rb.com.elite_agent.core.model.LoginEntity;
 import account.rb.com.elite_agent.core.response.LoginResponse;
 import account.rb.com.elite_agent.register.SignUpActivity;
 import account.rb.com.elite_agent.splash.PrefManager;
-import account.rb.com.elite_agent.utility.Constants;
 import account.rb.com.elite_agent.utility.ReadDeviceID;
 
-public class loginActivity extends BaseActivity implements View.OnClickListener, IResponseSubcriber {
+public class LoginActivity extends BaseActivity implements View.OnClickListener, IResponseSubcriber {
 
 
     TextView tvRegistration, tvForgotPassword;
@@ -92,7 +90,7 @@ public class loginActivity extends BaseActivity implements View.OnClickListener,
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
 
         btnSignIn.setOnClickListener(this);
-       // tvRegistration.setOnClickListener(this);
+        tvRegistration.setOnClickListener(this);
         tvForgotPassword.setOnClickListener(this);
     }
 
@@ -101,8 +99,14 @@ public class loginActivity extends BaseActivity implements View.OnClickListener,
         switch (view.getId()) {
 
             case R.id.tvForgotPassword:
-                startActivity(new Intent(loginActivity.this, ForgotPasswordActivity.class));
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
                 break;
+
+            case R.id.tvRegistration:
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+
+                break;
+
             case R.id.btnSignIn:
                 if (!isEmpty(etMobile)) {
                     etMobile.requestFocus();
@@ -116,10 +120,8 @@ public class loginActivity extends BaseActivity implements View.OnClickListener,
                 }
 
                 showDialog("Please Wait...");
-                if (refreshedToken == null) {
-                    refreshedToken = "";
-                }
-                new RegisterController(loginActivity.this).getLogin(etMobile.getText().toString(), etPassword.getText().toString(),"","", this);
+
+                new RegisterController(LoginActivity.this).getLogin(etMobile.getText().toString(), etPassword.getText().toString(),refreshedToken,deviceId, this);
 
 
                 break;
@@ -155,7 +157,7 @@ public class loginActivity extends BaseActivity implements View.OnClickListener,
 
                 prefManager.setMobile(etMobile.getText().toString());
                 prefManager.setPassword(etPassword.getText().toString());
-                startActivity(new Intent(loginActivity.this, HomeActivity.class));
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 finish();
             }
         }
@@ -213,7 +215,7 @@ public class loginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
-        new AlertDialog.Builder(loginActivity.this)
+        new AlertDialog.Builder(LoginActivity.this)
                 .setTitle("Retry")
                 .setMessage(message)
                 .setPositiveButton("OK", okListener)
