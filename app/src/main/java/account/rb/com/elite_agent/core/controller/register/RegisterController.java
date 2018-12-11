@@ -136,7 +136,7 @@ public class RegisterController implements IRegister {
 
                 } else {
                     //failure
-                    iResponseSubcriber.OnFailure(new RuntimeException("Enable to reach server, Try again later"));
+                    iResponseSubcriber.OnSuccess(response.body(), "");
                 }
             }
 

@@ -50,14 +50,18 @@ public class RegisterRequestBuilder extends RetroRequestBuilder {
         @POST("/api/forgot-password")
         Call<CommonResponse> forgotPassword(@Body HashMap<String, String> body);
 
-        @POST("/api/check-user-registration")
-        Call<VerifyUserRegisterResponse> verifyUserRegistration(@Body HashMap<String, String> body);
 
         @POST("/api/agent-otp-verify")
         Call<UserRegistrationResponse> userRegistration(@Body RegisterRequest registerRequest);
 
         @POST("/api/get-ifsc-code")
         Call<IfscCodeResponse> getIfscCode(@Body HashMap<String, String> body);
+
+        @POST("/api/check-agent-registration")
+        Call<VerifyUserRegisterResponse> verifyUserRegistration(@Body HashMap<String, String> body);
+
+
+
 
     }
 }

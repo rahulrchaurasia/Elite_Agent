@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -20,7 +21,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,9 +68,12 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
     AddUserRequestEntity addUserRequestEntity;
     PincodeEntity pincodeEntity;
     UpdateUserRequestEntity updateUserRequestEntity;
-    String otp = "0000";
-    LinearLayout llOtherInfo;
+    String OTP = "0000";
+    LinearLayout llOtherInfo, llBankDetail;
+    RelativeLayout rlBankDetail;
+    ImageView ivBankDetail;
     RegisterRequest registerRequest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +84,11 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         getSupportActionBar().setHomeButtonEnabled(true);
         init_widets();
         setListener();
-         registerRequest = new RegisterRequest();
-//        addUserRequestEntity = new AddUserRequestEntity();
-//        updateUserRequestEntity = new UpdateUserRequestEntity();
-//        llOtherInfo.setVisibility(View.GONE);
+        registerRequest = new RegisterRequest();
+
     }
 
-   //region Method
+    //region Method
 
     //region Broadcast Receiver
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -92,9 +96,9 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equalsIgnoreCase("otp")) {
                 String message = intent.getStringExtra("message");
-                String otp = extractDigitFromMessage(message);
-                if (!otp.equals("")) {
-                    etOtp.setText(otp);
+                OTP = extractDigitFromMessage(message);
+                if (!OTP.equals("")) {
+                    etOtp.setText(OTP);
                     // tvOk.performClick();
                 }
             }
@@ -123,9 +127,18 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         btnSubmit.setOnClickListener(this);
         etPincode.addTextChangedListener(pincodeTextWatcher);
         etIfscCode.setOnFocusChangeListener(this);
+        txtSaving.setOnClickListener(this);
+        txtCurrent.setOnClickListener(this);
+
+        rlBankDetail.setOnClickListener(this);
+        ivBankDetail.setOnClickListener(this);
+
     }
 
     private void init_widets() {
+
+        llBankDetail = (LinearLayout) findViewById(R.id.llBankDetail);
+        rlBankDetail = (RelativeLayout) findViewById(R.id.rlBankDetail);
         llOtherInfo = (LinearLayout) findViewById(R.id.llOtherInfo);
         etFullName = (EditText) findViewById(R.id.etFullName);
         etMobile = (EditText) findViewById(R.id.etMobile);
@@ -152,6 +165,8 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         etBankName = (EditText) findViewById(R.id.etBankName);
         txtSaving = (TextView) findViewById(R.id.txtSaving);
         txtCurrent = (TextView) findViewById(R.id.txtCurrent);
+
+        ivBankDetail = (ImageView) findViewById(R.id.ivBankDetail);
 
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
         //endregion
@@ -273,7 +288,7 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         return true;
     }
 
-    private void showOtpAlert () {
+    private void showOtpAlert() {
 
         try {
 
@@ -281,7 +296,7 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.otp_dialog);
             TextView tvOk = (TextView) dialog.findViewById(R.id.tvOk);
-            final TextView  txtOTPMessage = (TextView) dialog.findViewById(R.id.txtOTPMessage);
+            final TextView txtOTPMessage = (TextView) dialog.findViewById(R.id.txtOTPMessage);
             final TextView tvTime = (TextView) dialog.findViewById(R.id.tvTime);
             TextView tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);
             tvTitle.setText("Enter OTP sent on : " + etMobile.getText().toString());
@@ -301,16 +316,35 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
             txtOTPMessage.setVisibility(View.GONE);
 
             dialog.show();
+
+            etOtp.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    txtOTPMessage.setText("");
+                    txtOTPMessage.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+
+                }
+            });
             tvOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     // Close dialog
-                    if (etOtp.getText().toString().equals("0000") || etOtp.getText().toString().equals(otp)) {
+                    if (etOtp.getText().toString().equals("0000") || etOtp.getText().toString().equals(OTP)) {
 
                         etMobile.setText(etMobile.getText().toString());
                         dialog.dismiss();
-                        setRegisterRequest(otp);
+                        setRegisterRequest(OTP);
 
                     } else {
                         Toast.makeText(SignUpActivity.this, "Invalid OTP", Toast.LENGTH_SHORT).show();
@@ -326,7 +360,7 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
                 @Override
                 public void onClick(View view) {
                     etOtp.setText("");
-                    otp = "";
+                    OTP = "";
                     showDialog("Re-sending otp...");
                     new RegisterController(SignUpActivity.this).verifyOTPTegistration(etEmail.getText().toString(), etMobile.getText().toString(), "", SignUpActivity.this);
                 }
@@ -349,7 +383,7 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         }
     }
 
-    private void setRegisterRequest (String strOTP){
+    private void setRegisterRequest(String strOTP) {
 
 
         registerRequest.setOtp("" + strOTP);
@@ -363,18 +397,36 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         registerRequest.setCity("" + etCity.getText());
 
 
-
-
         showDialog();
         new RegisterController(this).saveUserRegistration(registerRequest, SignUpActivity.this);
+    }
+
+    private void setSavingAcc() {
+        ACCOUNT_TYPE = "SAVING";
+        txtSaving.setBackgroundResource(R.drawable.customeborder_blue);
+        txtSaving.setTextColor(ContextCompat.getColor(SignUpActivity.this, R.color.colorPrimary));
+
+        txtCurrent.setBackgroundResource(R.drawable.customeborder);
+        txtCurrent.setTextColor(ContextCompat.getColor(SignUpActivity.this, R.color.description_text));
+
+
+    }
+
+    private void setCurrentAcc() {
+        ACCOUNT_TYPE = "CURRENT";
+        txtCurrent.setBackgroundResource(R.drawable.customeborder_blue);
+        txtCurrent.setTextColor(ContextCompat.getColor(SignUpActivity.this, R.color.colorPrimary));
+
+        txtSaving.setBackgroundResource(R.drawable.customeborder);
+        txtSaving.setTextColor(ContextCompat.getColor(SignUpActivity.this, R.color.description_text));
+
+
     }
 
     //endregion
 
 
-
     //region event
-
 
 
     @Override
@@ -382,60 +434,35 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
 
         Constants.hideKeyBoard(view, SignUpActivity.this);
         switch (view.getId()) {
-//            case R.id.btnVerify:
-//
-//                //region Validation
-//
-//                if (!isValideEmailID(etEmail)) {
-//                    etEmail.requestFocus();
-//                    etEmail.setError("Enter Email");
-//                    return;
-//                }
-//                if (!isEmpty(etPassword)) {
-//                    etPassword.requestFocus();
-//                    etPassword.setError("Enter Password");
-//                    return;
-//                }
-//                if (!isEmpty(etconfirmPassword)) {
-//                    etconfirmPassword.requestFocus();
-//                    etconfirmPassword.setError("Confirm Password");
-//                    return;
-//                }
-//                if (!etPassword.getText().toString().equals(etconfirmPassword.getText().toString())) {
-//                    etconfirmPassword.requestFocus();
-//                    etconfirmPassword.setError("Password Mismatch");
-//                    return;
-//                }
-//                //endregion
-//
 
+            case R.id.txtSaving:
+                setSavingAcc();
+                break;
+            case R.id.txtCurrent:
+                setCurrentAcc();
+                break;
 
-            //             break;
+            case R.id.ivBankDetail:
+            case R.id.rlBankDetail:
+
+                if (llBankDetail.getVisibility() == View.GONE) {
+                    llBankDetail.setVisibility(View.VISIBLE);
+                    ivBankDetail.setImageDrawable(getResources().getDrawable(R.drawable.up_arrow));
+
+                } else {
+                    llBankDetail.setVisibility(View.GONE);
+                    ivBankDetail.setImageDrawable(getResources().getDrawable(R.drawable.down_arrow));
+                }
+
+                break;
             case R.id.btnSubmit:
-
 
                 if (validateRegistration() == true) {
                     showDialog();
                     new RegisterController(SignUpActivity.this).verifyOTPTegistration(etEmail.getText().toString(), etMobile.getText().toString(), "", SignUpActivity.this);
 
                 }
-
                 break;
-
-//                updateUserRequestEntity.setName(etFullName.getText().toString());
-//                updateUserRequestEntity.setOtp(Integer.parseInt(otp));
-//                updateUserRequestEntity.setMobile(etMobile.getText().toString());
-//                updateUserRequestEntity.setPincode(etPincode.getText().toString());
-//
-//                if (pincodeEntity != null) {
-//                    updateUserRequestEntity.setState("" + pincodeEntity.getState_id());
-//                    updateUserRequestEntity.setCity("" + pincodeEntity.getCity_id());
-//                    updateUserRequestEntity.setArea("" + pincodeEntity.getPostname());
-//                    updateUserRequestEntity.setAddress("" + pincodeEntity.getState_name());
-//                }
-//                updateUserRequestEntity.setRto("1");
-//                showDialog();
-//                new RegisterController(this).updateUser(updateUserRequestEntity, this);
 
 
         }
@@ -443,19 +470,21 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
 
     @Override
     public void OnSuccess(APIResponse response, String message) {
-        if (response instanceof PincodeResponse) {
-            cancelDialog();
-            if (response.getStatus_code() == 0) {
 
+        cancelDialog();
+        if (response instanceof PincodeResponse) {
+            if (response.getStatus_code() == 0) {
                 pincodeEntity = ((PincodeResponse) response).getData().get(0);
                 if (pincodeEntity != null) {
-                    etArea.setText("" + pincodeEntity.getPostname());
+//                 etArea.setText("" + pincodeEntity.getPostname());
                     etCity.setText("" + pincodeEntity.getCityname());
                     etState.setText("" + pincodeEntity.getState_name());
                 }
+            } else {
+                etCity.setText("");
+                etState.setText("");
             }
         } else if (response instanceof VerifyUserRegisterResponse) {
-
             if (response.getStatus_code() == 0) {
                 VerifyOTPEntity verifyOTPEntity = ((VerifyUserRegisterResponse) response).getData();
                 if (verifyOTPEntity.getSavedStatus() == 1) {
@@ -465,7 +494,6 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
                 }
             }
         } else if (response instanceof IfscCodeResponse) {
-            cancelDialog();
             if (response.getStatus_code() == 0) {
                 Constants.hideKeyBoard(etPincode, this);
                 if (((IfscCodeResponse) response).getMasterData() != null) {
@@ -487,13 +515,19 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
                             registerRequest.setBank_branch_name(etBankBranch.getText().toString());
                             registerRequest.setCity(etBankCity.getText().toString());
                         }
+                    } else {
+                        etIfscCode.setText("" + ifscEntity.getIFSCCode());
+                        erMicrCode.setText("");
+                        etBankName.setText("");
+                        etBankBranch.setText("");
+                        etBankCity.setText("");
+                        getCustomToast("Invalid IFSC Code");
                     }
                 }
             }
-        }else if (response instanceof UserRegistrationResponse) {
+        } else if (response instanceof UserRegistrationResponse) {
 
             if (response.getStatus_code() == 0) {
-
                 // this.finish();
                 //Toast.makeText(this, "Data Save Successfully" , Toast.LENGTH_SHORT).show();
                 getCustomToast("Data Save Successfully");
@@ -519,7 +553,6 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
-
 
 
     //region textwatcher and Onfocus Listener

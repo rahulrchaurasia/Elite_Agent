@@ -178,7 +178,7 @@
     <style name="HeaderLayout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/blue_border_lightblue_background</item>
+        <item name="android:background">@drawable/lightblue_background</item>
     </style>
 
     <style name="LinearLayoutStyle">
