@@ -21,6 +21,7 @@ public class TaskEntity {
      */
 
     private int id;
+    private String display_request_id;
     private String name;
     private String product_name;
     private String status_id;
@@ -175,5 +176,13 @@ public class TaskEntity {
 
     public void setTat(String tat) {
         this.tat = tat;
+    }
+
+    public String getDisplay_request_id() {
+        return display_request_id;
+    }
+
+    public void setDisplay_request_id(String display_request_id) {
+        this.display_request_id = display_request_id;
     }
 }

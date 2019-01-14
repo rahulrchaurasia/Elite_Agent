@@ -1,10 +1,8 @@
 package account.rb.com.elite_agent.taskDetail;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +19,7 @@ import java.util.List;
 
 import account.rb.com.elite_agent.BaseActivity;
 import account.rb.com.elite_agent.R;
+import account.rb.com.elite_agent.chat.ChatActivity;
 import account.rb.com.elite_agent.core.APIResponse;
 import account.rb.com.elite_agent.core.IResponseSubcriber;
 import account.rb.com.elite_agent.core.controller.product.ProductController;
@@ -29,7 +28,7 @@ import account.rb.com.elite_agent.core.model.UserEntity;
 import account.rb.com.elite_agent.core.response.AgentCommonResponse;
 import account.rb.com.elite_agent.core.response.TaskDetailResponse;
 import account.rb.com.elite_agent.database.DataBaseController;
-import account.rb.com.elite_agent.pendingDetail.PendingActivity;
+import account.rb.com.elite_agent.document.DocUploadActivity;
 import account.rb.com.elite_agent.splash.PrefManager;
 
 public class CurrentTaskActivity extends BaseActivity implements IResponseSubcriber {
@@ -61,13 +60,13 @@ public class CurrentTaskActivity extends BaseActivity implements IResponseSubcri
         statuslist.add(0, "Select");
 
         showDialog();
-        new ProductController(CurrentTaskActivity.this).taskDetail(loginEntity.getUser_id(),  this);
+        new ProductController(CurrentTaskActivity.this).taskDetail(loginEntity.getUser_id(), this);
 
 
     }
 
-    private void initilize( ) {
-        rvOrderDtl = (RecyclerView)findViewById(R.id.rvOrderDtl);
+    private void initilize() {
+        rvOrderDtl = (RecyclerView) findViewById(R.id.rvOrderDtl);
         rvOrderDtl.setHasFixedSize(true);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(CurrentTaskActivity.this);
@@ -97,8 +96,7 @@ public class CurrentTaskActivity extends BaseActivity implements IResponseSubcri
                 //Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
                 getCustomToast(response.getMessage());
                 showDialog();
-                new ProductController(this).taskDetail(loginEntity.getUser_id(),  this);
-
+                new ProductController(this).taskDetail(loginEntity.getUser_id(), this);
 
 
             }
@@ -111,6 +109,7 @@ public class CurrentTaskActivity extends BaseActivity implements IResponseSubcri
         Toast.makeText(CurrentTaskActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
 
     }
+
     public void redirectToTask(TaskEntity taskEntity) {
         uPdatePopUp(taskEntity);
     }
@@ -151,16 +150,13 @@ public class CurrentTaskActivity extends BaseActivity implements IResponseSubcri
 
                 int id = dataBaseController.getOrderStattusId(spStatus.getSelectedItem().toString());
 
-                if(id == 0)
-                {
+                if (id == 0) {
                     Toast.makeText(CurrentTaskActivity.this, "Please Select Status", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                else if( etRemark.getText().toString().equals("")){
+                } else if (etRemark.getText().toString().equals("")) {
                     Toast.makeText(CurrentTaskActivity.this, "Please Enter Remark", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                else {
+                } else {
 
                     updateTask(taskEntity, id, etRemark.getText().toString());
                     alertDialog.dismiss();
@@ -178,7 +174,24 @@ public class CurrentTaskActivity extends BaseActivity implements IResponseSubcri
 
     private void updateTask(TaskEntity taskEntity, int Staus, String Remark) {
         showDialog();
-        new ProductController(this).updateTask(taskEntity.getId(), loginEntity.getUser_id(), Staus,Remark, this);
+        new ProductController(this).updateTask(taskEntity.getId(), loginEntity.getUser_id(), Staus, Remark, this);
+    }
+
+    public void getOrderId(int orderId) {
+
+
+        startActivity(new Intent(this, DocUploadActivity.class)
+                .putExtra("ORDER_ID", orderId));
+
+
+    }
+
+    public void getOrderIdForComment(int orderId) {
+
+        startActivity(new Intent(this, ChatActivity.class)
+                .putExtra("ORDER_ID", orderId));
+
+
     }
 
 

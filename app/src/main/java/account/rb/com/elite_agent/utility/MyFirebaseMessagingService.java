@@ -160,9 +160,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.elite_launcher));
         }
 
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notificationBuilder.setSmallIcon(R.drawable.elite_notify_logo);
+            notificationBuilder.setColor(getResources().getColor(R.color.colorPrimary));
+            //  .setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary))
+        } else {
+            notificationBuilder.setSmallIcon(R.mipmap.elite_launcher);
+        }
+
         notificationBuilder
-                .setSmallIcon(R.mipmap.elite_launcher)
-                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary))
                 .setContentTitle(NotifyData.get("title"))
                 .setContentText(NotifyData.get("body"))
                 .setAutoCancel(true)

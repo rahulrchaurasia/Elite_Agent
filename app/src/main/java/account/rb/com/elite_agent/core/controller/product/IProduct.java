@@ -22,4 +22,11 @@ public interface IProduct {
     void orderSummary( int agent_id, IResponseSubcriber iResponseSubcriber);
 
     void getNotifcation(int userid,String count, IResponseSubcriber iResponseSubcriber);
+
+    void getDocumentView(String order_id, IResponseSubcriber iResponseSubcriber);
+
+    void saveAgentChat( int request_id,String comments, IResponseSubcriber iResponseSubcriber);
+
+    void displayAgentChat( int request_id, IResponseSubcriber iResponseSubcriber);
+
 }

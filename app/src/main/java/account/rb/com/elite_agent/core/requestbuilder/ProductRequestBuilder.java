@@ -2,7 +2,9 @@ package account.rb.com.elite_agent.core.requestbuilder;
 
 import account.rb.com.elite_agent.core.RetroRequestBuilder;
 import account.rb.com.elite_agent.core.response.AgentCommonResponse;
+import account.rb.com.elite_agent.core.response.ChatResponse;
 import account.rb.com.elite_agent.core.response.CommonResponse;
+import account.rb.com.elite_agent.core.response.DocumentViewResponse;
 import account.rb.com.elite_agent.core.response.NotificationResponse;
 import account.rb.com.elite_agent.core.response.OrderResponse;
 
@@ -46,6 +48,14 @@ public class ProductRequestBuilder extends RetroRequestBuilder {
         @POST("/api/get-notification")
         Call<NotificationResponse> getNotification(@Body HashMap<String, String> body);   //used
 
+        @POST("/api/get-order-document")
+        Call<DocumentViewResponse> getDocumentView(@Body HashMap<String, String> body);   //used
+
+        @POST("/api/save-request-comments")
+        Call<ChatResponse> saveAgentChat(@Body HashMap<String, String> body);
+
+        @POST("/api/get-request-comments")
+        Call<ChatResponse> displayAgentChat(@Body HashMap<String, String> body);
 
     }
 }

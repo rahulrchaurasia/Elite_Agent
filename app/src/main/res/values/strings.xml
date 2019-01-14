@@ -6,7 +6,8 @@
     <string name="click_here"> <b><u>Click Here!!</u></b></string>
     <string name="register_here"> <b><u>Register Here!</u></b></string>
     <string name="forgotPwd"><u><i>Forgot Password? .</i></u></string>
-
+    <string name="comment"><b><u>Write Comment </u></b></string>
+    <string name="doc"><b><u>View Document </u></b></string>
 
     <string name="accept_msg">"Are you sure want to Accept the task.</string>
     <string name="reject_msg">"Are you sure want to Reject the task.</string>
@@ -50,4 +51,6 @@
     <string name="title_activity_current_task">Current Order</string>
     <string name="title_activity_email_us">Email Us</string>
     <string name="title_activity_notification">Notification</string>
+    <string name="title_activity_doc_upload">View Document</string>
+    <string name="title_activity_chat">Comment</string>
 </resources>

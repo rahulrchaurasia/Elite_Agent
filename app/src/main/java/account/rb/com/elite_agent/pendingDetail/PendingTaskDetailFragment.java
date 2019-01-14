@@ -42,6 +42,7 @@ import account.rb.com.elite_agent.taskDetail.TaskDetailAdapter;
 public class PendingTaskDetailFragment extends BaseFragment implements IResponseSubcriber ,BaseFragment.CustomPopUpListener {
 
 
+     // ********* NOT IN USED **********/////////
     UserEntity loginEntity;
     DataBaseController dataBaseController;
 

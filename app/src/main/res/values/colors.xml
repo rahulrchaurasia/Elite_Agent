@@ -21,6 +21,10 @@
 
     <color name="colorPrimaryRed">#ed1c24</color>
 
+    <color name="seperator_white">#dadada</color>
+
+
+
 
     <color name="darkBlue">#1565c0</color>
     <color name="divider">#F1F1F1</color>
@@ -52,6 +56,7 @@
     <color name="filter_bar_title_selected">#5a5a5a</color>
     <color name="back_button_color">#5a5a5a</color>
     <color name="buttonBackground">#ee5e35</color>
+    <color name="buttonRedBackground">#ee5e35</color>
     <color name="uvv_black">#ff000000</color>
     <color name="orange">#FFA500</color>
     <color name="darkorange">#FF8C00</color>

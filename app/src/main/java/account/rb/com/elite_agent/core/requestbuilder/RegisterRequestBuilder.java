@@ -14,6 +14,7 @@ import account.rb.com.elite_agent.core.response.UpdateUserResponse;
 
 import java.util.HashMap;
 
+import account.rb.com.elite_agent.core.response.UserConstantResponse;
 import account.rb.com.elite_agent.core.response.UserRegistrationResponse;
 import account.rb.com.elite_agent.core.response.VerifyUserRegisterResponse;
 import retrofit2.Call;
@@ -61,6 +62,8 @@ public class RegisterRequestBuilder extends RetroRequestBuilder {
         Call<VerifyUserRegisterResponse> verifyUserRegistration(@Body HashMap<String, String> body);
 
 
+        @POST("/api/get-agent-constant")
+        Call<UserConstantResponse> getUserConstant(@Body HashMap<String, String> body);
 
 
     }

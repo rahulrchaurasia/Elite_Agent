@@ -4,7 +4,7 @@
     android:id="@+id/lyParent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/seperator"
+    android:background="@color/bg_dashboard"
     android:orientation="vertical"
     android:paddingBottom="4dp"
     android:paddingLeft="4dp"
@@ -14,10 +14,12 @@
         android:id="@+id/card_view_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginTop="5dp"
         app:cardCornerRadius="5dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,8 +47,6 @@
                     android:textColor="@color/white"
                     android:textStyle="bold" />
             </LinearLayout>
-
-
 
 
             <LinearLayout
@@ -283,171 +283,188 @@
 
         </LinearLayout>
 
+
         <LinearLayout
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:orientation="vertical"
-            android:padding="4dp"
+            android:orientation="vertical">
 
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp">
+            <LinearLayout
 
-            <TextView
-                android:id="@+id/txtProduct"
-                style="@style/TextViewStyle.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingTop="8dp"
-                android:text="Prd Name"
-                android:textAllCaps="true"
-                android:textAppearance="@style/TextStyle.Title" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.7dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/seperator" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingTop="5dp">
+                android:orientation="vertical"
+                android:padding="4dp">
 
                 <TextView
-                    android:id="@+id/textDate"
-                    style="@style/TextViewStyle.MediumRegular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="Date: "
-                    android:textColor="@color/dashboard_title" />
-
-
-                <TextView
-                    android:id="@+id/txtDate"
-                    style="@style/TextViewStyle.MediumRegular"
+                    android:id="@+id/txtProduct"
+                    style="@style/TextViewStyle.Large"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/textDate"
-                    android:text="date" />
+                    android:gravity="center_vertical"
+                    android:paddingTop="8dp"
+                    android:text="Prd Name"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextStyle.Title" />
 
-            </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/seperator" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:id="@+id/textTat"
-                    style="@style/TextViewStyle.MediumRegular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="TAT: "
-                    android:textColor="@color/dashboard_title" />
-
-
-                <TextView
-                    android:id="@+id/txtTat"
-                    style="@style/TextViewStyle.MediumRegular"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/textTat"
-                    android:text="9" />
+                    android:paddingBottom="8dp"
+                    android:paddingTop="5dp">
 
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:id="@+id/textOrderId"
-                    style="@style/TextViewStyle.MediumRegular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="Request Id:"
-                    android:textColor="@color/dashboard_title" />
+                    <TextView
+                        android:id="@+id/textOrderId"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Request Id:"
+                        android:textColor="@color/dashboard_title" />
 
 
-                <TextView
-                    android:id="@+id/txtOrderId"
-                    style="@style/TextViewStyle.MediumRegular"
+                    <TextView
+                        android:id="@+id/txtOrderId"
+                        style="@style/TextViewStyle.MediumBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/textOrderId"
+                        android:text="0" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/textOrderId"
-                    android:text="0" />
+                    android:paddingBottom="8dp"
+                    android:paddingTop="5dp">
 
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:id="@+id/textOrderStatus"
-                    style="@style/TextViewStyle.MediumRegular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="Request Status:"
-                    android:textColor="@color/dashboard_title" />
+                    <TextView
+                        android:id="@+id/textTat"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="TAT: "
+                        android:textColor="@color/dashboard_title" />
 
 
-                <TextView
-                    android:id="@+id/txtOrderStatus"
-                    style="@style/TextViewStyle.MediumRegular"
+                    <TextView
+                        android:id="@+id/txtTat"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/textTat"
+                        android:text="9" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/textOrderStatus"
-                    android:text="Status" />
+                    android:paddingBottom="8dp"
+                    android:paddingTop="5dp">
 
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingTop="5dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/texRemark"
-                    style="@style/TextViewStyle.MediumRegular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="Remark:"
-                    android:textColor="@color/dashboard_title" />
+                    <TextView
+                        android:id="@+id/textOrderStatus"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Request Status:"
+                        android:textColor="@color/dashboard_title" />
 
 
-                <TextView
-                    android:id="@+id/txtRemark"
-                    style="@style/TextViewStyle.MediumRegular"
+                    <TextView
+                        android:id="@+id/txtOrderStatus"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/textOrderStatus"
+                        android:text="Status" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/texRemark"
-                    android:text="date" />
+                    android:paddingBottom="8dp"
+                    android:paddingTop="5dp">
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/textDate"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Date: "
+                        android:textColor="@color/dashboard_title" />
 
+
+                    <TextView
+                        android:id="@+id/txtDate"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/textDate"
+                        android:text="date" />
+
+                    <TextView
+                        android:id="@+id/txtUpload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:textColor="@color/darkBlue"
+                        android:text="@string/doc"
+                        style="MediumRegular" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="5dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/texRemark"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Remark:"
+                        android:textColor="@color/dashboard_title" />
+
+
+                    <TextView
+                        android:id="@+id/txtRemark"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/texRemark"
+                        android:text="date" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -455,13 +472,13 @@
                 android:layout_margin="10dp"
                 android:orientation="horizontal">
 
+
                 <Button
                     android:id="@+id/btnReject"
                     style="@style/ButtonStyle"
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"
-                    android:text="REJECT"
-                    />
+                    android:text="REJECT" />
 
                 <Button
                     android:id="@+id/btnAccept"
@@ -469,11 +486,13 @@
 
                     android:layout_marginLeft="8dp"
                     android:layout_weight="1"
-                    android:text="ACCEPT"
-                    />
+                    android:text="ACCEPT" />
 
 
             </LinearLayout>
+
+
+
 
         </LinearLayout>
 

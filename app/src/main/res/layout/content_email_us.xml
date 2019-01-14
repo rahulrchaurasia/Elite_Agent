@@ -64,13 +64,14 @@
                 android:tint="@color/lightBlue" />
 
             <TextView
+                android:id="@+id/txtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/TextViewStyle.Large"
                 android:textColor="@color/black"
                 android:gravity="center"
                 android:layout_marginTop="3sp"
-                android:text="Elite@Rupeeboss.com"/>
+                android:text=""/>
 
         </LinearLayout>
 
@@ -90,13 +91,14 @@
                 android:tint="@color/uvv_green" />
 
             <TextView
+                android:id="@+id/txtCall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/TextViewStyle.Large"
                 android:textColor="@color/black"
                 android:gravity="center"
                 android:layout_marginTop="2dp"
-                android:text="@string/call_number"/>
+                android:text=""/>
 
         </LinearLayout>
 

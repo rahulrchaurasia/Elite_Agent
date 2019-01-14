@@ -26,8 +26,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import account.rb.com.elite_agent.Dashboard.DashBoardFragment;
+import account.rb.com.elite_agent.core.APIResponse;
+import account.rb.com.elite_agent.core.IResponseSubcriber;
+import account.rb.com.elite_agent.core.controller.register.RegisterController;
 import account.rb.com.elite_agent.core.model.LoginEntity;
+import account.rb.com.elite_agent.core.model.UserConstantEntity;
 import account.rb.com.elite_agent.core.model.UserEntity;
+import account.rb.com.elite_agent.core.response.UserConstantResponse;
 import account.rb.com.elite_agent.database.DataBaseController;
 import account.rb.com.elite_agent.login.ChangePasswordFragment;
 import account.rb.com.elite_agent.login.LoginActivity;
@@ -39,7 +44,7 @@ import account.rb.com.elite_agent.taskDetail.TaskDetailFragment;
 import account.rb.com.elite_agent.utility.Constants;
 
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements IResponseSubcriber {
 
     private NavigationView navigationView;
     private DrawerLayout drawer;
@@ -62,6 +67,7 @@ public class HomeActivity extends BaseActivity {
     private static final String TAG_PENDING_TASK = "Pending Task";
     public static String CURRENT_TAG = TAG_HOME;
     PrefManager prefManager;
+    UserConstantEntity userConstatntEntity;
 
     //region broadcast receiver
     public BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
@@ -102,7 +108,16 @@ public class HomeActivity extends BaseActivity {
         prefManager = new PrefManager(this);
         loginEntity = prefManager.getUserData();
         setUpNavigationView();
+        userConstatntEntity = prefManager.getUserConstatnt();
         init_headers();
+
+        if (userConstatntEntity == null) {
+
+            if(prefManager.getUserConstatnt() == null) {
+                new RegisterController(this).getUserConstatnt(loginEntity.getUser_id(),HomeActivity.this);
+
+            }
+        }
 
         if (savedInstanceState == null) {
             navItemIndex = 0;
@@ -442,4 +457,23 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void OnSuccess(APIResponse response, String message) {
+
+        if (response instanceof UserConstantResponse) {
+
+            if (response.getStatus_code() == 0) {
+
+                userConstatntEntity = ((UserConstantResponse) response).getData().get(0);
+                if (userConstatntEntity != null) {
+                    init_headers();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void OnFailure(Throwable t) {
+
+    }
 }

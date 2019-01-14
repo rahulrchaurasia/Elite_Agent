@@ -14,6 +14,7 @@ import account.rb.com.elite_agent.core.response.IfscCodeResponse;
 import account.rb.com.elite_agent.core.response.LoginResponse;
 import account.rb.com.elite_agent.core.response.PincodeResponse;
 import account.rb.com.elite_agent.core.response.UpdateUserResponse;
+import account.rb.com.elite_agent.core.response.UserConstantResponse;
 import account.rb.com.elite_agent.core.response.UserRegistrationResponse;
 import account.rb.com.elite_agent.core.response.VerifyUserRegisterResponse;
 import account.rb.com.elite_agent.database.DataBaseController;
@@ -461,6 +462,50 @@ public class RegisterController implements IRegister {
                 }
             }
         });
+    }
+
+    @Override
+    public void getUserConstatnt(int agent_id,final IResponseSubcriber iResponseSubcriber) {
+
+        HashMap<String, String> body = new HashMap<>();
+
+        body.put("agent_id", String.valueOf(agent_id));
+        registerQuotesNetworkService.getUserConstant(body).enqueue(new Callback<UserConstantResponse>() {
+            @Override
+            public void onResponse(Call<UserConstantResponse> call, Response<UserConstantResponse> response) {
+                if (response.body() != null) {
+
+                    if (response.isSuccessful()) {
+                        new PrefManager(mContext).storeUserConstatnt(response.body().getData().get(0));
+                        if (iResponseSubcriber != null)
+                            iResponseSubcriber.OnSuccess(response.body(), "");
+                    }
+
+                } else {
+                    //failure
+                    if (iResponseSubcriber != null)
+                        iResponseSubcriber.OnFailure(new RuntimeException("Enable to reach server, Try again later"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserConstantResponse> call, Throwable t) {
+                if (iResponseSubcriber != null) {
+                    if (t instanceof ConnectException) {
+                        iResponseSubcriber.OnFailure(t);
+                    } else if (t instanceof SocketTimeoutException) {
+                        iResponseSubcriber.OnFailure(new RuntimeException("Check your internet connection"));
+                    } else if (t instanceof UnknownHostException) {
+                        iResponseSubcriber.OnFailure(new RuntimeException("Check your internet connection"));
+                    } else if (t instanceof NumberFormatException) {
+                        iResponseSubcriber.OnFailure(new RuntimeException("Unexpected server response"));
+                    } else {
+                        iResponseSubcriber.OnFailure(new RuntimeException(t.getMessage()));
+                    }
+                }
+            }
+        });
+
     }
 
 }

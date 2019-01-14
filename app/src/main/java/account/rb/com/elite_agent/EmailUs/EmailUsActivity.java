@@ -21,13 +21,24 @@ import android.widget.TextView;
 
 import account.rb.com.elite_agent.BaseActivity;
 import account.rb.com.elite_agent.R;
+import account.rb.com.elite_agent.core.APIResponse;
+import account.rb.com.elite_agent.core.IResponseSubcriber;
+import account.rb.com.elite_agent.core.controller.register.RegisterController;
+import account.rb.com.elite_agent.core.model.LoginEntity;
+import account.rb.com.elite_agent.core.model.UserConstantEntity;
+import account.rb.com.elite_agent.core.model.UserEntity;
+import account.rb.com.elite_agent.core.response.UserConstantResponse;
+import account.rb.com.elite_agent.splash.PrefManager;
 import account.rb.com.elite_agent.utility.Constants;
 
-public class EmailUsActivity extends BaseActivity implements View.OnClickListener {
+public class EmailUsActivity extends BaseActivity implements View.OnClickListener ,IResponseSubcriber {
 
     LinearLayout lyCalling, lyEmail;
+    TextView txtCall ,txtEmail;
     String[] permissionsRequired = new String[]{Manifest.permission.CALL_PHONE};
-
+    UserConstantEntity userConstatntEntity;
+    UserEntity loginEntity;
+    PrefManager prefManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,15 +47,25 @@ public class EmailUsActivity extends BaseActivity implements View.OnClickListene
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        prefManager = new PrefManager(this);
+        loginEntity = prefManager.getUserData();
+        userConstatntEntity = prefManager.getUserConstatnt();
         initialize();
         setListner();
+        setCallUI();
+        if (userConstatntEntity == null) {
 
+            if (prefManager.getUserConstatnt() == null) {
+                new RegisterController(this).getUserConstatnt(loginEntity.getUser_id(),this);
+            }
+        }
     }
 
     private void initialize() {
         lyCalling = (LinearLayout) findViewById(R.id.lyCalling);
         lyEmail = (LinearLayout) findViewById(R.id.lyEmail);
+        txtCall =  findViewById(R.id.txtCall);
+        txtEmail =  findViewById(R.id.txtEmail);
 
     }
 
@@ -52,6 +73,14 @@ public class EmailUsActivity extends BaseActivity implements View.OnClickListene
     private void setListner() {
         lyCalling.setOnClickListener(this);
         lyEmail.setOnClickListener(this);
+    }
+
+    private void setCallUI()
+    {
+        if(userConstatntEntity != null) {
+            txtCall.setText(userConstatntEntity.getContactno());
+            txtEmail.setText(userConstatntEntity.getEmailid());
+        }
     }
 
 
@@ -77,7 +106,7 @@ public class EmailUsActivity extends BaseActivity implements View.OnClickListene
                     }
                 } else {
 
-                    ConfirmAlert("Calling", getResources().getString(R.string.supp_Calling) + " ", getResources().getString(R.string.call_number));
+                    ConfirmAlert("Calling", getResources().getString(R.string.supp_Calling) + " ", userConstatntEntity.getContactno());
                 }
 
                 break;
@@ -85,8 +114,8 @@ public class EmailUsActivity extends BaseActivity implements View.OnClickListene
 
             case R.id.lyEmail:
 
-                if (getResources().getString(R.string.email) != "") {
-                    composeEmail(getResources().getString(R.string.email), "Elite Support Team");
+                if (userConstatntEntity != null) {
+                    composeEmail(userConstatntEntity.getEmailid(), "Elite Support Team");
                 }
                 break;
 
@@ -170,7 +199,7 @@ public class EmailUsActivity extends BaseActivity implements View.OnClickListene
 
                     if (call_phone) {
 
-                        ConfirmAlert("Calling", getResources().getString(R.string.supp_Calling) + " " , "9702943935");
+                        ConfirmAlert("Calling", getResources().getString(R.string.supp_Calling) + " ", userConstatntEntity.getContactno());
                     }
 
                 }
@@ -179,5 +208,25 @@ public class EmailUsActivity extends BaseActivity implements View.OnClickListene
 
 
         }
+    }
+
+    @Override
+    public void OnSuccess(APIResponse response, String message) {
+
+        if (response instanceof UserConstantResponse) {
+
+            if (response.getStatus_code() == 0) {
+
+                userConstatntEntity = ((UserConstantResponse) response).getData().get(0);
+                if (userConstatntEntity != null) {
+                    setCallUI();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void OnFailure(Throwable t) {
+
     }
 }

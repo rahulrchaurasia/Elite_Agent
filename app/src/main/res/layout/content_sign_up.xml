@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:paddingBottom="5dp"
+            android:padding="5dp"
+            android:layout_marginBottom="5dp"
             android:orientation="vertical">
 
 
@@ -198,6 +199,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:orientation="horizontal">
 
                         <android.support.design.widget.TextInputLayout

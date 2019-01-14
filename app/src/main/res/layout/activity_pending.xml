@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_dashboard"
     tools:context="account.rb.com.elite_agent.pendingDetail.PendingActivity">
 
     <android.support.design.widget.AppBarLayout

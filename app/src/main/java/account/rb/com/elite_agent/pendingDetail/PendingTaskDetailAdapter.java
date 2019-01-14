@@ -36,15 +36,16 @@ public class PendingTaskDetailAdapter extends RecyclerView.Adapter<PendingTaskDe
 
     public class TaskDetailItem extends RecyclerView.ViewHolder {
 
-        TextView txtCustName, txtProduct, txtOrderID,txtTat,
+        TextView txtUpload,txtCustName, txtProduct, txtOrderID,txtTat,
                 txtQty, txtRate, txtAmount,
                 txtBank, txtMobile, txtPaymentStatus, txtOrderStatus,
                 txtEmail, txtDate, txtRemark;
-        Button btnAccept, btnReject;
+        Button btnAccept, btnReject ;
         LinearLayout lyParent;
 
         public TaskDetailItem(View itemView) {
             super(itemView);
+            txtUpload = (TextView) itemView.findViewById(R.id.txtUpload);
 
             lyParent = (LinearLayout) itemView.findViewById(R.id.lyParent);
             btnAccept = (Button) itemView.findViewById(R.id.btnAccept);
@@ -95,7 +96,7 @@ public class PendingTaskDetailAdapter extends RecyclerView.Adapter<PendingTaskDe
 
         holder.txtCustName.setText("" + taskEntity.getCust_name());
         holder.txtProduct.setText("" + taskEntity.getProduct_name());
-        holder.txtOrderID.setText("" + taskEntity.getId());
+        holder.txtOrderID.setText("" + taskEntity.getDisplay_request_id());
        holder.txtTat.setText("" + taskEntity.getTat());
 
         holder.txtQty.setText("" + taskEntity.getQuantity());
@@ -139,6 +140,13 @@ public class PendingTaskDetailAdapter extends RecyclerView.Adapter<PendingTaskDe
             }
         });
 
+
+        holder.txtUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((PendingActivity) mContext).getOrderId(taskEntity.getId());
+            }
+        });
 
     }
 

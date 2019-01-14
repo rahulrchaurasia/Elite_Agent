@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -35,13 +36,15 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailAdapter.Ta
         TextView txtCustName, txtProduct, txtOrderId,txtTat,
                 txtQty, txtRate, txtAmount,
                 txtBank, txtMobile, txtPaymentStatus, txtOrderStatus,
-                txtEmail, txtDate, txtRemark;
+                txtEmail, txtDate, txtRemark ,btnUpload;;
         Button btnUpdate;
         LinearLayout lyParent;
+        RelativeLayout RlComment;
 
         public TaskDetailItem(View itemView) {
             super(itemView);
-
+            RlComment = (RelativeLayout) itemView.findViewById(R.id.RlComment);
+            btnUpload = (Button) itemView.findViewById(R.id.btnUpload);
             lyParent = (LinearLayout) itemView.findViewById(R.id.lyParent);
             btnUpdate = (Button) itemView.findViewById(R.id.btnUpdate);
             txtCustName = (TextView) itemView.findViewById(R.id.txtCustName);
@@ -82,7 +85,7 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailAdapter.Ta
 
         holder.txtCustName.setText("" + taskEntity.getCust_name());
         holder.txtProduct.setText("" + taskEntity.getProduct_name());
-        holder.txtOrderId.setText("" + taskEntity.getId());
+        holder.txtOrderId.setText("" + taskEntity.getDisplay_request_id());
         holder.txtTat.setText("" + taskEntity.getTat());
 
         holder.txtQty.setText("" + taskEntity.getQuantity());
@@ -116,7 +119,19 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailAdapter.Ta
             }
         });
 
+        holder.btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((CurrentTaskActivity) mContext).getOrderId(taskEntity.getId());
+            }
+        });
 
+        holder.RlComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((CurrentTaskActivity) mContext).getOrderIdForComment(taskEntity.getId());
+            }
+        });
 
 
     }

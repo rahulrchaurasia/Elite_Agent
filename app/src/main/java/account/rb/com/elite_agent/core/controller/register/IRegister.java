@@ -30,4 +30,5 @@ public interface IRegister {
 
     void getIFSC(String IfscCode, IResponseSubcriber iResponseSubcriber);
 
+    void getUserConstatnt(int agent_id, IResponseSubcriber iResponseSubcriber);
 }

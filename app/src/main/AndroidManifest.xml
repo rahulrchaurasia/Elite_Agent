@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
@@ -68,23 +67,45 @@
             android:label="@string/title_activity_pending"
             android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="account.rb.com.elite_agent.HomeActivity" />
+        </activity>
         <activity
             android:name=".taskDetail.CurrentTaskActivity"
             android:label="@string/title_activity_current_task"
             android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="account.rb.com.elite_agent.HomeActivity" />
+        </activity>
         <activity
             android:name=".EmailUs.EmailUsActivity"
             android:label="@string/title_activity_email_us"
             android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="account.rb.com.elite_agent.HomeActivity" />
+        </activity>
         <activity
             android:name=".notification.NotificationActivity"
             android:label="@string/title_activity_notification"
-            android:theme="@style/AppTheme"></activity>
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="account.rb.com.elite_agent.HomeActivity" />
+        </activity>
         <activity
             android:name=".register.SignUpActivity"
             android:label="@string/title_activity_sign_up"
@@ -96,6 +117,29 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="account.rb.com.elite_agent.register.SignUpActivity" />
             />
+        </activity>
+        <activity
+            android:name=".document.DocUploadActivity"
+            android:label="@string/title_activity_doc_upload"
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="account.rb.com.elite_agent.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".chat.ChatActivity"
+            android:label="@string/title_activity_chat"
+
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="account.rb.com.elite_agent.HomeActivity" />
         </activity>
     </application>
 

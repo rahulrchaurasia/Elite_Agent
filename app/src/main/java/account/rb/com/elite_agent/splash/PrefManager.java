@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
+import account.rb.com.elite_agent.core.model.UserConstantEntity;
 import account.rb.com.elite_agent.core.model.UserEntity;
 
 public class PrefManager {
@@ -20,6 +21,7 @@ public class PrefManager {
 
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
     private static final String IS_PRODUCT_MASTER_UPDATE = "isProductMasterUpdate";
+    private static final String USER_CONSTATNT = "user_constatnt";
 
     private static final String MOBILE = "ELITE_CUSTOMER_MOBILE";
     private static final String PASSWORD = "ELITE_CUSTOMER_PASSWORD";
@@ -54,6 +56,27 @@ public class PrefManager {
             return null;
         }
     }
+
+    //region master UserConstatnr
+
+    public boolean storeUserConstatnt(UserConstantEntity entity) {
+        editor.putString(USER_CONSTATNT, new Gson().toJson(entity));
+        return editor.commit();
+    }
+
+    public UserConstantEntity getUserConstatnt() {
+        String userComtatnt = pref.getString(USER_CONSTATNT, "");
+
+        if (userComtatnt.length() > 0) {
+            UserConstantEntity userMaster = new Gson().fromJson(userComtatnt, UserConstantEntity.class);
+            return userMaster;
+        } else {
+            return null;
+        }
+    }
+
+
+    //endregion
 
 
     public void setFirstTimeLaunch(boolean isFirstTime) {

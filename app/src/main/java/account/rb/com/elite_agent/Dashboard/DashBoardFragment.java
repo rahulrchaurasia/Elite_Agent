@@ -27,13 +27,17 @@ import java.util.ArrayList;
 import account.rb.com.elite_agent.BaseFragment;
 import account.rb.com.elite_agent.EmailUs.EmailUsActivity;
 import account.rb.com.elite_agent.R;
+import account.rb.com.elite_agent.chat.ChatActivity;
 import account.rb.com.elite_agent.core.APIResponse;
 import account.rb.com.elite_agent.core.IResponseSubcriber;
 import account.rb.com.elite_agent.core.controller.product.ProductController;
+import account.rb.com.elite_agent.core.controller.register.RegisterController;
 import account.rb.com.elite_agent.core.model.LoginEntity;
 import account.rb.com.elite_agent.core.model.OrderSummaryEntity;
+import account.rb.com.elite_agent.core.model.UserConstantEntity;
 import account.rb.com.elite_agent.core.model.UserEntity;
 import account.rb.com.elite_agent.core.response.OrderSummaryResponse;
+import account.rb.com.elite_agent.core.response.UserConstantResponse;
 import account.rb.com.elite_agent.database.DataBaseController;
 import account.rb.com.elite_agent.pendingDetail.PendingActivity;
 import account.rb.com.elite_agent.pendingDetail.PendingTaskDetailFragment;
@@ -52,6 +56,7 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
 
     DataBaseController dataBaseController;
     UserEntity loginEntity;
+    UserConstantEntity userConstatntEntity;
     String[] permissionsRequired = new String[]{Manifest.permission.CALL_PHONE};
 
     public DashBoardFragment() {
@@ -70,14 +75,15 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
         dataBaseController = new DataBaseController(getActivity());
         prefManager = new PrefManager(getActivity());
         loginEntity = prefManager.getUserData();
-
+        userConstatntEntity = prefManager.getUserConstatnt();
 
 
         registerCustomPopUp(this);
 
-        if(loginEntity != null) {
-            showDialog();
-            new ProductController(getActivity()).orderSummary(loginEntity.getUser_id(), this);
+        if (userConstatntEntity == null) {
+            if (prefManager.getUserConstatnt() == null) {
+                new RegisterController(getActivity()).getUserConstatnt(loginEntity.getUser_id(), DashBoardFragment.this);
+            }
         }
 
         return view;
@@ -127,6 +133,13 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
                 //  txtLossCount.setText("" + "\u20B9" + orderSummaryEntity.getLost());
                 txtLossCount.setText("" + orderSummaryEntity.getLoss());
             }
+        } else if (response instanceof UserConstantResponse) {
+
+            if (response.getStatus_code() == 0) {
+
+                userConstatntEntity = ((UserConstantResponse) response).getData().get(0);
+
+            }
         }
     }
 
@@ -161,7 +174,8 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
             case R.id.lyLoss:
 
 
-                startActivity(new Intent(getActivity(), PendingActivity.class).putExtra(Constants.TASK_TYPE, 2));
+               startActivity(new Intent(getActivity(), PendingActivity.class).putExtra(Constants.TASK_TYPE, 2));
+
                 break;
 
             case R.id.lyCall:
@@ -180,7 +194,7 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
                     }
                 } else {
 
-                    ConfirmAlert("Calling", getResources().getString(R.string.supp_Calling) + " " , getResources().getString(R.string.call_number));
+                    ConfirmAlert("Calling", getResources().getString(R.string.supp_Calling) + " " ,  userConstatntEntity.getContactno());
                 }
 
                 break;
@@ -194,6 +208,32 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+
+
+            case Constants.PERMISSION_CALLBACK_CONSTANT:
+                if (grantResults.length > 0) {
+
+                    //boolean writeExternal = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean call_phone = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
+                    if (call_phone) {
+
+                        ConfirmAlert("Calling", getResources().getString(R.string.supp_Calling) + " ", userConstatntEntity.getContactno());
+
+
+                    }
+
+                }
+
+                break;
+
+
+        }
+    }
 
     public void ConfirmAlert(String Title, String strBody, final String strMobile) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomDialog);

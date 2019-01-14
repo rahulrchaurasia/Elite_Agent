@@ -96,10 +96,10 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equalsIgnoreCase("otp")) {
                 String message = intent.getStringExtra("message");
-                OTP = extractDigitFromMessage(message);
-                if (!OTP.equals("")) {
-                    etOtp.setText(OTP);
-                    // tvOk.performClick();
+                String strmessage = extractDigitFromMessage(message);
+                if (!strmessage.equals("")) {
+                    etOtp.setText(strmessage);
+
                 }
             }
         }
