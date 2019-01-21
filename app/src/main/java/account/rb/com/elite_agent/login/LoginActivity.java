@@ -45,7 +45,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             "android.permission.CAMERA",
             "android.permission.SEND_SMS",
             "android.permission.READ_SMS",
-            "android.permission.RECEIVE_SMS"};
+            "android.permission.RECEIVE_SMS",
+            "android.permission.CALL_PHONE"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,10 +136,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         int sendSms = ContextCompat.checkSelfPermission(getApplicationContext(), perms[1]);
         int readSms = ContextCompat.checkSelfPermission(getApplicationContext(), perms[2]);
         int receiveSms = ContextCompat.checkSelfPermission(getApplicationContext(), perms[3]);
+        int callPhone = ContextCompat.checkSelfPermission(getApplicationContext(), perms[4]);
         return camera == PackageManager.PERMISSION_GRANTED
                 && sendSms == PackageManager.PERMISSION_GRANTED
                 && readSms == PackageManager.PERMISSION_GRANTED
-                && receiveSms == PackageManager.PERMISSION_GRANTED;
+                && receiveSms == PackageManager.PERMISSION_GRANTED
+                && callPhone == PackageManager.PERMISSION_GRANTED;
     }
 
 
@@ -183,9 +186,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     boolean sendSms = grantResults[1] == PackageManager.PERMISSION_GRANTED;
                     boolean readSms = grantResults[2] == PackageManager.PERMISSION_GRANTED;
                     boolean receiveSms = grantResults[3] == PackageManager.PERMISSION_GRANTED;
+                    boolean callPhone = grantResults[4] == PackageManager.PERMISSION_GRANTED;
 
-
-                    if (camera &&  sendSms && readSms && receiveSms) {
+                    if (camera &&  sendSms && readSms && receiveSms && callPhone) {
                         // you can do all necessary steps
                         // new Dialer().getObject().getLeadData(String.valueOf(Utility.EmpCode), this, this);
                     } else {

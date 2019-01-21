@@ -45,7 +45,8 @@ public class ForgotPasswordActivity extends BaseActivity implements IResponseSub
         cancelDialog();
         if (response instanceof CommonResponse) {
             if (response.getStatus_code() == 0) {
-                Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
+
+                getCustomToast(response.getMessage());
                 etMobile.setText("");
 
             }

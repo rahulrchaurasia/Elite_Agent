@@ -60,6 +60,7 @@
     <color name="uvv_black">#ff000000</color>
     <color name="orange">#FFA500</color>
     <color name="darkorange">#FF8C00</color>
+    <color name="yellow_text">#e2e20d</color>
 
     <color name="green_light">#7db142</color>
     <color name="green_descent">#42ceb2</color>

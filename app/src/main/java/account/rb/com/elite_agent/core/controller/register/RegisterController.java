@@ -258,8 +258,7 @@ public class RegisterController implements IRegister {
         body.put("current_password", curr_password);
         body.put("new_password", new_password);
         body.put("confirm_password", new_password);
-        body.put("confirm_password", new_password);
-        body.put("type", "2");
+        body.put("type", "1");
 
         registerQuotesNetworkService.changePassword(body).enqueue(new Callback<CommonResponse>() {
             @Override
@@ -302,7 +301,7 @@ public class RegisterController implements IRegister {
         HashMap<String, String> body = new HashMap<>();
 
         body.put("mobile", mobile);
-        body.put("type", "2");
+        body.put("type", "1");
 
         registerQuotesNetworkService.forgotPassword(body).enqueue(new Callback<CommonResponse>() {
             @Override

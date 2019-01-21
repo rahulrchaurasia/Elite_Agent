@@ -85,8 +85,8 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:background">@drawable/blue_border_lightblue_background</item>
         <item name="android:focusable">true</item>
-        <item name="android:minHeight">36dp</item>
-    </style>
+        <item name="android:minHeight">39dp</item>
+    </style>+
 
     <style name="ButtonGreen" parent="@android:style/Widget.Button">
 

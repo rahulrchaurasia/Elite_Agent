@@ -69,6 +69,12 @@ public class PendingTaskDetailAdapter extends RecyclerView.Adapter<PendingTaskDe
             txtDate = (TextView) itemView.findViewById(R.id.txtDate);
             txtRemark = (TextView) itemView.findViewById(R.id.txtRemark);
 
+            if (TASK_TYPE == 2) {
+               txtUpload.setVisibility(View.GONE);
+            } else {
+                txtUpload.setVisibility(View.VISIBLE);
+            }
+
             if (TASK_TYPE != 0) {
                 btnAccept.setVisibility(View.GONE);
                 btnReject.setVisibility(View.GONE);
