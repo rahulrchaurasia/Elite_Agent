@@ -9,13 +9,20 @@ import account.rb.com.elite_agent.core.response.NotificationResponse;
 import account.rb.com.elite_agent.core.response.OrderResponse;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import account.rb.com.elite_agent.core.response.OrderSummaryResponse;
 import account.rb.com.elite_agent.core.response.TaskDetailResponse;
+import account.rb.com.elite_agent.core.response.UploadDocResponse;
+import account.rb.com.elite_agent.core.response.ViewDocCommentResponse;
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 
 public class ProductRequestBuilder extends RetroRequestBuilder {
 
@@ -56,6 +63,19 @@ public class ProductRequestBuilder extends RetroRequestBuilder {
 
         @POST("/api/get-request-comments")
         Call<ChatResponse> displayAgentChat(@Body HashMap<String, String> body);
+
+
+  // Current Order : Upload
+        @POST("/api/view-doc-comment")
+        Call<ViewDocCommentResponse> viewDocComment(@Body HashMap<String, String> body);
+
+        @POST("/api/save-doc-comment")
+        Call<CommonResponse> saveDocComment(@Body HashMap<String, String> body);
+
+        @Multipart
+        @POST("/api/comment-doc-upload")
+        Call<UploadDocResponse> uploadDocument(@Part() MultipartBody.Part doc, @PartMap() Map<String, Integer> partMap);  //used
+
 
     }
 }

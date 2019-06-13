@@ -6,6 +6,8 @@ import android.net.NetworkInfo;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import java.util.HashMap;
+
 /**
  * Created by IN-RB on 02-02-2018.
  */
@@ -31,6 +33,8 @@ public class Constants {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
+
 
     public static boolean checkInternetStatus(Context context) {
       /*  ConnectivityManager conMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

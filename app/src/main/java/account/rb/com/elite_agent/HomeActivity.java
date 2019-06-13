@@ -54,6 +54,7 @@ public class HomeActivity extends BaseActivity implements IResponseSubcriber {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+
     TextView textNotifyItemCount, txtEmail, txtName;
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;

@@ -31,11 +31,13 @@ public class RegisterRequest {
     private String mobile;
     private String emailid;
     private String pass;
+
     private String pincode;
     private String address;
     private String area;
     private String city;
     private String state;
+
     private String bank_account_no;
     private String IFSC_code;
     private String MICR_code;

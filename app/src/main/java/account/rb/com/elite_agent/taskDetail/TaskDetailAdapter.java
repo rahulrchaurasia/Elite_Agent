@@ -33,20 +33,24 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailAdapter.Ta
 
     public class TaskDetailItem extends RecyclerView.ViewHolder {
 
-        TextView txtCustName, txtProduct, txtOrderId,txtTat,
+        TextView txtViewDoc, txtCustName, txtProduct, txtOrderId,txtTat,
                 txtQty, txtRate, txtAmount,
                 txtBank, txtMobile, txtPaymentStatus, txtOrderStatus,
-                txtEmail, txtDate, txtRemark ,btnUpload;;
-        Button btnUpdate;
+                txtEmail, txtDate, txtRemark ;
+        Button btnUploadFile;
+
         LinearLayout lyParent;
         RelativeLayout RlComment;
 
         public TaskDetailItem(View itemView) {
             super(itemView);
             RlComment = (RelativeLayout) itemView.findViewById(R.id.RlComment);
-            btnUpload = (Button) itemView.findViewById(R.id.btnUpload);
+
             lyParent = (LinearLayout) itemView.findViewById(R.id.lyParent);
-            btnUpdate = (Button) itemView.findViewById(R.id.btnUpdate);
+
+            btnUploadFile = (Button) itemView.findViewById(R.id.btnUploadFile);
+
+            txtViewDoc  = (TextView) itemView.findViewById(R.id.txtViewDoc);
             txtCustName = (TextView) itemView.findViewById(R.id.txtCustName);
             txtProduct = (TextView) itemView.findViewById(R.id.txtProduct);
             txtOrderId = (TextView) itemView.findViewById(R.id.txtOrderId);
@@ -111,15 +115,16 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailAdapter.Ta
             holder.txtOrderStatus.setTextColor(Color.parseColor("#de6d75"));
         }
 
-        holder.btnUpdate.setOnClickListener(new View.OnClickListener() {
+
+
+        holder.btnUploadFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                ((CurrentTaskActivity) mContext).redirectToTask(taskEntity);
+                ((CurrentTaskActivity) mContext).redirectToDocUpload(taskEntity.getId());
             }
         });
-
-        holder.btnUpload.setOnClickListener(new View.OnClickListener() {
+        holder.txtViewDoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((CurrentTaskActivity) mContext).getOrderId(taskEntity.getId());

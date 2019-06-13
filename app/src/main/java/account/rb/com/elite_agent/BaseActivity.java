@@ -3,9 +3,12 @@ package account.rb.com.elite_agent;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,6 +20,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+
+import account.rb.com.elite_agent.utility.Utility;
 
 
 /**
@@ -187,5 +201,143 @@ public class BaseActivity extends AppCompatActivity {
 
         startActivity(Intent.createChooser(intent, "Email via..."));
     }
+
+    public File createFile(String name) {
+        FileOutputStream outStream = null;
+
+        File dir = Utility.createDirIfNotExists();
+        String fileName = name + ".jpg";
+        fileName = fileName.replaceAll("\\s+", "");
+        File outFile = new File(dir, fileName);
+
+        return outFile;
+    }
+
+    public File saveImageToStorage(Bitmap bitmap, String name) {
+        FileOutputStream outStream = null;
+
+        File dir = Utility.createDirIfNotExists();
+        String fileName = name + ".jpg";
+        fileName = fileName.replaceAll("\\s+", "");
+        File outFile = new File(dir, fileName);
+        try {
+            outStream = new FileOutputStream(outFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 70, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return outFile;
+    }
+
+    public File savePdfToStorage(Bitmap bitmap, String name) {
+        FileOutputStream outStream = null;
+
+        File dir = Utility.createDirIfNotExists();
+        String fileName = name + ".pdf";
+        fileName = fileName.replaceAll("\\s+", "");
+        File outFile = new File(dir, fileName);
+        try {
+            outStream = new FileOutputStream(outFile);
+
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return outFile;
+    }
+
+    public void DownloadFile(String fileURL, File directory) {
+        try {
+
+            FileOutputStream f = new FileOutputStream(directory);
+            URL u = new URL(fileURL);
+            HttpURLConnection c = (HttpURLConnection) u.openConnection();
+            c.setRequestMethod("GET");
+            c.setDoOutput(true);
+            c.connect();
+
+            InputStream in = c.getInputStream();
+
+            byte[] buffer = new byte[1024];
+            int len1 = 0;
+            while ((len1 = in.read(buffer)) > 0) {
+                f.write(buffer, 0, len1);
+            }
+            f.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void showPdf(File file) {
+        try {
+//            Uri selectedUri = FileProvider.getUriForFile(this,
+//                    this.getString(R.string.file_provider_authority),
+//                    new File(Environment.getExternalStorageDirectory() + "/MTC Report/" + FileName + ".pdf"));
+
+            Uri selectedUri = FileProvider.getUriForFile(this,
+                    this.getString(R.string.file_provider_authority), file);
+
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(selectedUri, "application/pdf");
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            this.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public class DownloadFromUrl extends AsyncTask<Void, Void, Void> {
+
+
+        File dir;
+        File outFile;
+        String fileURL;
+        String fileName;
+
+        public DownloadFromUrl(String imgURL, String tempfileName) {
+            showDialog();
+            fileURL = imgURL;
+            dir = Utility.createDirIfNotExists();
+            fileName = tempfileName + ".pdf";
+            fileName = fileName.replaceAll("\\s+", "");
+
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            outFile = new File(dir, fileName);
+
+            try {
+                outFile.createNewFile();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            DownloadFile(fileURL, outFile);
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            super.onPreExecute();
+        }
+
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            cancelDialog();
+            showPdf(outFile);
+        }
+    }
+
+
 
 }

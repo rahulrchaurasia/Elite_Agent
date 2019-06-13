@@ -30,6 +30,7 @@ import account.rb.com.elite_agent.core.response.TaskDetailResponse;
 import account.rb.com.elite_agent.database.DataBaseController;
 import account.rb.com.elite_agent.document.DocUploadActivity;
 import account.rb.com.elite_agent.splash.PrefManager;
+import account.rb.com.elite_agent.taskDetail.docUpload.CurrentDocUploadActivity;
 
 public class CurrentTaskActivity extends BaseActivity implements IResponseSubcriber {
 
@@ -41,6 +42,8 @@ public class CurrentTaskActivity extends BaseActivity implements IResponseSubcri
     List<TaskEntity> lsTaskDetail;
     TaskDetailAdapter mAdapter;
     List<String> statuslist;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,10 +113,39 @@ public class CurrentTaskActivity extends BaseActivity implements IResponseSubcri
 
     }
 
-    public void redirectToTask(TaskEntity taskEntity) {
-        uPdatePopUp(taskEntity);
+
+
+    public void redirectToDocUpload(int orderId) {
+
+        startActivity(new Intent(CurrentTaskActivity.this, CurrentDocUploadActivity.class)
+                .putExtra("ORDER_ID",String.valueOf(orderId)));
+
+        // temp 05
+//
+//        startActivity(new Intent(CurrentTaskActivity.this, CurrentDocUploadActivity.class)
+//                .putExtra("ORDER_ID",String.valueOf(1)));
     }
 
+
+
+
+
+    public void getOrderId(int orderId) {
+
+        startActivity(new Intent(this, DocUploadActivity.class)
+                .putExtra("ORDER_ID", orderId));
+
+    }
+
+    public void getOrderIdForComment(int orderId) {
+
+        startActivity(new Intent(this, ChatActivity.class)
+                .putExtra("ORDER_ID", orderId));
+
+
+    }
+
+    //region Not in Used
     private void uPdatePopUp(final TaskEntity taskEntity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(CurrentTaskActivity.this);
 
@@ -177,22 +209,8 @@ public class CurrentTaskActivity extends BaseActivity implements IResponseSubcri
         new ProductController(this).updateTask(taskEntity.getId(), loginEntity.getUser_id(), Staus, Remark, this);
     }
 
-    public void getOrderId(int orderId) {
+    //endregion
 
-
-        startActivity(new Intent(this, DocUploadActivity.class)
-                .putExtra("ORDER_ID", orderId));
-
-
-    }
-
-    public void getOrderIdForComment(int orderId) {
-
-        startActivity(new Intent(this, ChatActivity.class)
-                .putExtra("ORDER_ID", orderId));
-
-
-    }
 
 
 }

@@ -78,17 +78,17 @@ public class BaseFragment extends Fragment {
         return true;
     }
 
-    public static boolean isValidPan(String Pan) {
-//        String rx = "/[A-Z]{5}[0-9]{4}[A-Z]{1}$/";
-        Pattern pattern = Pattern.compile("[A-Z]{5}[0-9]{4}[A-Z]{1}");
-        Matcher matcher = pattern.matcher(Pan);
-        if (matcher.matches()) {
-            return true;
-
-        } else {
-            return false;
-        }
-    }
+//    public static boolean isValidPan(String Pan) {
+//
+//        Pattern pattern = Pattern.compile("[A-Z]{5}[0-9]{4}[A-Z]{1}");
+//        Matcher matcher = pattern.matcher(Pan);
+//        if (matcher.matches()) {
+//            return true;
+//
+//        } else {
+//            return false;
+//        }
+//    }
 
     public void showAlert(String strBody) {
         try {

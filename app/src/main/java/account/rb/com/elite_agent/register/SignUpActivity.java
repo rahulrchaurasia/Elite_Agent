@@ -1,5 +1,6 @@
 package account.rb.com.elite_agent.register;
 
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -54,7 +55,7 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
 
     EditText etFullName, etMobile, etPincode, etArea, etCity, etState, etEmail, etPassword, etconfirmPassword;
     //region bank details
-    EditText etBankAcNo, etAccountType, etIfscCode, erMicrCode, etBankBranch, etBankCity, etBankName;
+    EditText etBankAcNo, etAccountType, etIfscCode, etMicrCode, etBankBranch, etBankCity, etBankName;
     TextView txtSaving, txtCurrent;
     IfscEntity ifscEntity;
     public String ACCOUNT_TYPE = "SAVING";
@@ -71,7 +72,7 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
     String OTP = "0000";
     LinearLayout llOtherInfo, llBankDetail;
     RelativeLayout rlBankDetail;
-    ImageView ivBankDetail;
+    ImageView ivBankDetail ;
     RegisterRequest registerRequest;
 
 
@@ -159,7 +160,7 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         etIfscCode = (EditText) findViewById(R.id.etIfscCode);
         etIfscCode.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(15)});
 
-        erMicrCode = (EditText) findViewById(R.id.erMicrCode);
+        etMicrCode = (EditText) findViewById(R.id.etMicrCode);
         etBankBranch = (EditText) findViewById(R.id.etBankBranch);
         etBankCity = (EditText) findViewById(R.id.etBankCity);
         etBankName = (EditText) findViewById(R.id.etBankName);
@@ -251,11 +252,11 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
                 return false;
             }
         }
-        if (erMicrCode.getText().toString().isEmpty()) {
+        if (etMicrCode.getText().toString().isEmpty()) {
 
 
-            erMicrCode.requestFocus();
-            erMicrCode.setError("Enter Bank MICR");
+            etMicrCode.requestFocus();
+            etMicrCode.setError("Enter Bank MICR");
             return false;
 
         }
@@ -390,11 +391,20 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         registerRequest.setAgent_name("" + etFullName.getText());
         registerRequest.setEmailid("" + etEmail.getText());
         registerRequest.setMobile("" + etMobile.getText());
+        registerRequest.setPass("" + etPassword.getText());
 
         registerRequest.setPincode("" + etPincode.getText());
+        registerRequest.setAddress("");
         registerRequest.setState("" + etState.getText());
         registerRequest.setArea("" + etArea.getText());
         registerRequest.setCity("" + etCity.getText());
+
+        registerRequest.setBank_account_no("" + etBankAcNo.getText());
+        registerRequest.setIFSC_code("" + etIfscCode.getText());
+        registerRequest.setMICR_code("" + etMicrCode.getText());
+        registerRequest.setBank_name("" + etBankName.getText());
+        registerRequest.setBank_branch_name("" + etBankBranch.getText());
+        registerRequest.setBank_city("" + etBankCity.getText());
 
 
         showDialog();
@@ -447,11 +457,18 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
 
                 if (llBankDetail.getVisibility() == View.GONE) {
                     llBankDetail.setVisibility(View.VISIBLE);
-                    ivBankDetail.setImageDrawable(getResources().getDrawable(R.drawable.up_arrow));
+                   // ivBankDetail.setImageDrawable(getResources().getDrawable(R.drawable.up_arrow));
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(ivBankDetail, "rotation",180, 0);
+                    anim.setDuration(500);
+                    anim.start();
 
                 } else {
                     llBankDetail.setVisibility(View.GONE);
-                    ivBankDetail.setImageDrawable(getResources().getDrawable(R.drawable.down_arrow));
+                  //  ivBankDetail.setImageDrawable(getResources().getDrawable(R.drawable.down_arrow));
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(ivBankDetail, "rotation",0,  180);
+                    anim.setDuration(500);
+                    anim.start();
+
                 }
 
                 break;
@@ -488,6 +505,7 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
             if (response.getStatus_code() == 0) {
                 VerifyOTPEntity verifyOTPEntity = ((VerifyUserRegisterResponse) response).getData();
                 if (verifyOTPEntity.getSavedStatus() == 1) {
+                    OTP = verifyOTPEntity.getOTP();
                     showOtpAlert();
                 } else if (verifyOTPEntity.getSavedStatus() == 2) {
                     getCustomToast(response.getMessage());
@@ -502,22 +520,22 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
 
                         etIfscCode.setText("" + ifscEntity.getIFSCCode());
                         if (ifscEntity.getMICRCode() != null)
-                            erMicrCode.setText("" + ifscEntity.getMICRCode());
+                            etMicrCode.setText("" + ifscEntity.getMICRCode());
                         etBankName.setText("" + ifscEntity.getBankName());
                         etBankBranch.setText("" + ifscEntity.getBankBran());
                         etBankCity.setText("" + ifscEntity.getCityName());
 
-                        if (!erMicrCode.getText().toString().isEmpty()) {
+                        if (!etMicrCode.getText().toString().isEmpty()) {
 
 
-                            registerRequest.setMICR_code(erMicrCode.getText().toString());
+                            registerRequest.setMICR_code(etMicrCode.getText().toString());
                             registerRequest.setBank_name(etBankName.getText().toString());
                             registerRequest.setBank_branch_name(etBankBranch.getText().toString());
                             registerRequest.setCity(etBankCity.getText().toString());
                         }
                     } else {
                         etIfscCode.setText("" + ifscEntity.getIFSCCode());
-                        erMicrCode.setText("");
+                        etMicrCode.setText("");
                         etBankName.setText("");
                         etBankBranch.setText("");
                         etBankCity.setText("");
@@ -528,8 +546,7 @@ public class SignUpActivity extends BaseActivity implements IResponseSubcriber, 
         } else if (response instanceof UserRegistrationResponse) {
 
             if (response.getStatus_code() == 0) {
-                // this.finish();
-                //Toast.makeText(this, "Data Save Successfully" , Toast.LENGTH_SHORT).show();
+
                 getCustomToast("Data Save Successfully");
                 this.finish();
             }

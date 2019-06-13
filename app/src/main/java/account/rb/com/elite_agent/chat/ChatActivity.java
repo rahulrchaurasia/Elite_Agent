@@ -130,6 +130,7 @@ public class ChatActivity extends BaseActivity implements IResponseSubcriber ,On
                 chatEntityList = ((ChatResponse) response).getData();
                 mAdapter = new ChatAdapter(ChatActivity.this, chatEntityList);
                 rvChat.setAdapter(mAdapter);
+                rvChat.scrollToPosition(chatEntityList.size() - 1);
 
             } else {
                 rvChat.setAdapter(null);
@@ -157,6 +158,7 @@ public class ChatActivity extends BaseActivity implements IResponseSubcriber ,On
             }
         }
     }
+
 
 
     @Override

@@ -43,10 +43,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     String refreshedToken = "";
     String[] perms = {
             "android.permission.CAMERA",
-            "android.permission.SEND_SMS",
-            "android.permission.READ_SMS",
-            "android.permission.RECEIVE_SMS",
-            "android.permission.CALL_PHONE"};
+            "android.permission.WRITE_EXTERNAL_STORAGE",
+            "android.permission.READ_EXTERNAL_STORAGE",
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,15 +133,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     private boolean checkPermission() {
 
         int camera = ContextCompat.checkSelfPermission(getApplicationContext(), perms[0]);
-        int sendSms = ContextCompat.checkSelfPermission(getApplicationContext(), perms[1]);
-        int readSms = ContextCompat.checkSelfPermission(getApplicationContext(), perms[2]);
-        int receiveSms = ContextCompat.checkSelfPermission(getApplicationContext(), perms[3]);
-        int callPhone = ContextCompat.checkSelfPermission(getApplicationContext(), perms[4]);
+
+        int write_external = ContextCompat.checkSelfPermission(getApplicationContext(), perms[1]);
+        int read_external = ContextCompat.checkSelfPermission(getApplicationContext(), perms[2]);
+
         return camera == PackageManager.PERMISSION_GRANTED
-                && sendSms == PackageManager.PERMISSION_GRANTED
-                && readSms == PackageManager.PERMISSION_GRANTED
-                && receiveSms == PackageManager.PERMISSION_GRANTED
-                && callPhone == PackageManager.PERMISSION_GRANTED;
+
+
+                && write_external == PackageManager.PERMISSION_GRANTED
+                && read_external == PackageManager.PERMISSION_GRANTED;
+
     }
 
 
@@ -175,6 +176,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         ActivityCompat.requestPermissions(this, perms, REQUEST_CODE_ASK_PERMISSIONS);
     }
 
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(LoginActivity.this)
+                .setTitle("Retry")
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                //.setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
 
@@ -182,15 +194,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             case REQUEST_CODE_ASK_PERMISSIONS:
                 if (grantResults.length > 0) {
 
+                    //boolean writeExternal = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean camera = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    boolean sendSms = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                    boolean readSms = grantResults[2] == PackageManager.PERMISSION_GRANTED;
-                    boolean receiveSms = grantResults[3] == PackageManager.PERMISSION_GRANTED;
-                    boolean callPhone = grantResults[4] == PackageManager.PERMISSION_GRANTED;
 
-                    if (camera &&  sendSms && readSms && receiveSms && callPhone) {
+
+                    boolean writeExternal = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean readExternal = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+
+
+
+                    if (camera && writeExternal && readExternal ) {
                         // you can do all necessary steps
                         // new Dialer().getObject().getLeadData(String.valueOf(Utility.EmpCode), this, this);
+                        // Toast.makeText(this, "All permission granted", Toast.LENGTH_SHORT).show();
                     } else {
 
                         //Permission Denied, You cannot access location data and camera
@@ -211,15 +227,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
-    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
-        new AlertDialog.Builder(LoginActivity.this)
-                .setTitle("Retry")
-                .setMessage(message)
-                .setPositiveButton("OK", okListener)
-                //.setNegativeButton("Cancel", null)
-                .create()
-                .show();
-    }
 
     //endregion
 }

@@ -120,13 +120,13 @@ public class PendingTaskDetailAdapter extends RecyclerView.Adapter<PendingTaskDe
 
 
         if (taskEntity.getStatus_id().equals("1")) {
-            holder.txtOrderStatus.setTextColor(Color.parseColor("#009EE3"));
+            holder.txtOrderStatus.setTextColor(Color.parseColor("#009EE3"));    //blue
         } else if (taskEntity.getStatus_id().equals("2")) {
-            holder.txtOrderStatus.setTextColor(Color.parseColor("#212121"));
+            holder.txtOrderStatus.setTextColor(Color.parseColor("#212121"));   // black
         } else if (taskEntity.getStatus_id().equals("3")) {
-            holder.txtOrderStatus.setTextColor(Color.parseColor("#42ceb2"));
+            holder.txtOrderStatus.setTextColor(Color.parseColor("#42ceb2"));  // green
         } else if (taskEntity.getStatus_id().equals("4")) {
-            holder.txtOrderStatus.setTextColor(Color.parseColor("#de6d75"));
+            holder.txtOrderStatus.setTextColor(Color.parseColor("#de6d75"));    //red
         }
 
         holder.btnAccept.setOnClickListener(new View.OnClickListener() {

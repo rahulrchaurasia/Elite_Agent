@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\Rahul Proj\\EliteAgent\\Elite_Agent\\aFileChooser\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\ic_provider.png",
+        "source": "D:\\Rahul Proj\\EliteAgent\\Elite_Agent\\aFileChooser\\src\\main\\res\\drawable-mdpi\\ic_provider.png"
+    },
+    {
+        "merged": "D:\\Rahul Proj\\EliteAgent\\Elite_Agent\\aFileChooser\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\ic_chooser.png",
+        "source": "D:\\Rahul Proj\\EliteAgent\\Elite_Agent\\aFileChooser\\src\\main\\res\\drawable-mdpi\\ic_chooser.png"
+    },
+    {
+        "merged": "D:\\Rahul Proj\\EliteAgent\\Elite_Agent\\aFileChooser\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\ic_folder.png",
+        "source": "D:\\Rahul Proj\\EliteAgent\\Elite_Agent\\aFileChooser\\src\\main\\res\\drawable-mdpi\\ic_folder.png"
+    },
+    {
+        "merged": "D:\\Rahul Proj\\EliteAgent\\Elite_Agent\\aFileChooser\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\ic_file.png",
+        "source": "D:\\Rahul Proj\\EliteAgent\\Elite_Agent\\aFileChooser\\src\\main\\res\\drawable-mdpi\\ic_file.png"
+    }
+]

@@ -4,16 +4,14 @@ package account.rb.com.elite_agent.Dashboard;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,17 +20,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import account.rb.com.elite_agent.BaseFragment;
 import account.rb.com.elite_agent.EmailUs.EmailUsActivity;
 import account.rb.com.elite_agent.R;
-import account.rb.com.elite_agent.chat.ChatActivity;
 import account.rb.com.elite_agent.core.APIResponse;
 import account.rb.com.elite_agent.core.IResponseSubcriber;
 import account.rb.com.elite_agent.core.controller.product.ProductController;
 import account.rb.com.elite_agent.core.controller.register.RegisterController;
-import account.rb.com.elite_agent.core.model.LoginEntity;
 import account.rb.com.elite_agent.core.model.OrderSummaryEntity;
 import account.rb.com.elite_agent.core.model.UserConstantEntity;
 import account.rb.com.elite_agent.core.model.UserEntity;
@@ -40,7 +34,6 @@ import account.rb.com.elite_agent.core.response.OrderSummaryResponse;
 import account.rb.com.elite_agent.core.response.UserConstantResponse;
 import account.rb.com.elite_agent.database.DataBaseController;
 import account.rb.com.elite_agent.pendingDetail.PendingActivity;
-import account.rb.com.elite_agent.pendingDetail.PendingTaskDetailFragment;
 import account.rb.com.elite_agent.splash.PrefManager;
 import account.rb.com.elite_agent.taskDetail.CurrentTaskActivity;
 import account.rb.com.elite_agent.utility.Constants;
@@ -48,16 +41,18 @@ import account.rb.com.elite_agent.utility.Constants;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashBoardFragment extends BaseFragment implements View.OnClickListener, IResponseSubcriber ,BaseFragment.CustomPopUpListener {
+public class DashBoardFragment extends BaseFragment implements View.OnClickListener, IResponseSubcriber, BaseFragment.CustomPopUpListener {
 
     PrefManager prefManager;
     TextView txtCurrentCount, txtPendingCount, txtCompletetCount, txtLossCount;
-    LinearLayout lyCurrent, lyPending, lyComplete, lyLoss ,lyCall, lyEmail;
+    LinearLayout lyCurrent, lyPending, lyComplete, lyLoss, lyCall, lyEmail;
 
     DataBaseController dataBaseController;
     UserEntity loginEntity;
     UserConstantEntity userConstatntEntity;
     String[] permissionsRequired = new String[]{Manifest.permission.CALL_PHONE};
+    PackageInfo pinfo;
+    String versionNAme;
 
     public DashBoardFragment() {
         // Required empty public constructor
@@ -80,11 +75,13 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
 
         registerCustomPopUp(this);
 
-        if (userConstatntEntity == null) {
-            if (prefManager.getUserConstatnt() == null) {
-                new RegisterController(getActivity()).getUserConstatnt(loginEntity.getUser_id(), DashBoardFragment.this);
-            }
+        try {
+            pinfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+            versionNAme = pinfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
+        new RegisterController(getActivity()).getUserConstatnt(loginEntity.getUser_id(), DashBoardFragment.this);
 
         return view;
     }
@@ -139,6 +136,18 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
 
                 userConstatntEntity = ((UserConstantResponse) response).getData().get(0);
 
+                if (userConstatntEntity.getVersionCode() != null) {
+                    int serverVersionCode = Integer.parseInt((userConstatntEntity.getVersionCode()));
+                    if (pinfo != null && pinfo.versionCode < serverVersionCode) {
+
+                        int forceUpdate = Integer.parseInt(userConstatntEntity.getIsForceUpdate());
+                        if (forceUpdate == 1) {
+                            // forced update app
+                            showPlaystoreDialog("New version available on play store!!!! Please update.");
+                        }
+                    }
+                }
+
             }
         }
     }
@@ -174,27 +183,14 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
             case R.id.lyLoss:
 
 
-               startActivity(new Intent(getActivity(), PendingActivity.class).putExtra(Constants.TASK_TYPE, 2));
+                startActivity(new Intent(getActivity(), PendingActivity.class).putExtra(Constants.TASK_TYPE, 2));
 
                 break;
 
             case R.id.lyCall:
 
-                if (ActivityCompat.checkSelfPermission(this.getActivity(), permissionsRequired[0]) != PackageManager.PERMISSION_GRANTED) {
-
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(), permissionsRequired[0])) {
-                        //Show Information about why you need the permission
-                        ActivityCompat.requestPermissions(this.getActivity(), permissionsRequired, Constants.PERMISSION_CALLBACK_CONSTANT);
-
-                    } else {
-
-                        // openPopUp(lyCall, "Need  Permission", "This app needs all permissions.", "GRANT", true);
-                        openPopUp(lyCall, "Need Call Permission", "Required call permissions.", "GRANT", "DENNY", false, true);
-
-                    }
-                } else {
-
-                    ConfirmAlert("Calling", getResources().getString(R.string.supp_Calling) + " " ,  userConstatntEntity.getContactno());
+                if(userConstatntEntity != null) {
+                    ConfirmAlert("Calling", getResources().getString(R.string.supp_Calling) + " ", userConstatntEntity.getContactno());
                 }
 
                 break;
@@ -208,39 +204,13 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-
-
-            case Constants.PERMISSION_CALLBACK_CONSTANT:
-                if (grantResults.length > 0) {
-
-                    //boolean writeExternal = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    boolean call_phone = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-
-                    if (call_phone) {
-
-                        ConfirmAlert("Calling", getResources().getString(R.string.supp_Calling) + " ", userConstatntEntity.getContactno());
-
-
-                    }
-
-                }
-
-                break;
-
-
-        }
-    }
 
     public void ConfirmAlert(String Title, String strBody, final String strMobile) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomDialog);
 
 
         Button btnSubmit;
-        TextView txtTile, txtBody,txtMob;
+        TextView txtTile, txtBody, txtMob;
         ImageView ivCross;
 
         LayoutInflater inflater = this.getLayoutInflater();
@@ -253,9 +223,9 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
         txtTile = (TextView) dialogView.findViewById(R.id.txtTile);
         txtBody = (TextView) dialogView.findViewById(R.id.txtMessage);
         txtMob = (TextView) dialogView.findViewById(R.id.txtOther);
-        ivCross  = (ImageView) dialogView.findViewById(R.id.ivCross);
+        ivCross = (ImageView) dialogView.findViewById(R.id.ivCross);
 
-        btnSubmit  = (Button) dialogView.findViewById(R.id.btnSubmit);
+        btnSubmit = (Button) dialogView.findViewById(R.id.btnSubmit);
 
         txtTile.setText(Title);
         txtBody.setText(strBody);
@@ -266,7 +236,7 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
             public void onClick(View v) {
                 alertDialog.dismiss();
 
-                Intent intentCalling = new Intent(Intent.ACTION_CALL);
+                Intent intentCalling = new Intent(Intent.ACTION_DIAL);
                 intentCalling.setData(Uri.parse("tel:" + strMobile));
                 startActivity(intentCalling);
 
@@ -305,9 +275,59 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
     public void onResume() {
         super.onResume();
 
-        if(loginEntity != null) {
+        if (loginEntity != null) {
 
             new ProductController(getActivity()).orderSummary(loginEntity.getUser_id(), this);
         }
     }
+
+    //region PlayStore
+
+    public void showPlaystoreDialog(String msg) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.update_dialog, null);
+
+        builder.setView(dialogView);
+        final AlertDialog alertDialog = builder.create();
+
+        // dialog.setTitle("Title...");
+
+        // set the custom dialog components - text, image and button
+        TextView txtMsg = (TextView) dialogView.findViewById(R.id.txtMsg);
+        txtMsg.setText(msg);
+
+        LinearLayout lyUpdate = (LinearLayout) dialogView.findViewById(R.id.lyUpdate);
+        //TextView btnOk = (TextView) dialog.findViewById(R.id.tvOk);
+        // if button is clicked, close the custom dialog
+        lyUpdate.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+                                            alertDialog.dismiss();
+                                            getActivity().finish();
+                                            openAppMarketPlace();
+                                        }
+                                    }
+        );
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+
+
+    }
+
+    private void openAppMarketPlace() {
+
+        final String appPackageName = getActivity().getPackageName(); // getPackageName() from Context or Activity object
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+        }
+
+    }
+
+    //endregion
+
 }

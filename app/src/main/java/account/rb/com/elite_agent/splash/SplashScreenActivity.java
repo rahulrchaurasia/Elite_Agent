@@ -34,7 +34,7 @@ public class SplashScreenActivity extends BaseActivity implements IResponseSubcr
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash_screen);
-
+        txtGroup = (TextView) findViewById(R.id.txtGroup);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);

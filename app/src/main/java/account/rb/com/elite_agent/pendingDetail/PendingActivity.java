@@ -29,7 +29,7 @@ import account.rb.com.elite_agent.document.DocUploadActivity;
 import account.rb.com.elite_agent.splash.PrefManager;
 import account.rb.com.elite_agent.utility.Constants;
 
-public class PendingActivity extends BaseActivity implements IResponseSubcriber,BaseActivity.CustomPopUpListener {
+public class PendingActivity extends BaseActivity implements IResponseSubcriber,BaseActivity.CustomPopUpListener  {
 
     UserEntity loginEntity;
     DataBaseController dataBaseController;

@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">Elite-Agent</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="file_provider_authority" translatable="false">account.rb.com.elite_agent.fileprovider</string>
 
     <string name="signup">Not a Member? <b><u>Sign up now!</u></b></string>
     <string name="click_here"> <b><u>Click Here!!</u></b></string>
     <string name="register_here"> <b><u>Register Here!</u></b></string>
     <string name="forgotPwd"><u><i>Forgot Password? .</i></u></string>
     <string name="comment"><b><u>Write Comment </u></b></string>
+    <string name="upload"><b><u>Customer Doc</u></b></string>
     <string name="doc"><b><u>View Document </u></b></string>
 
     <string name="accept_msg">"Are you sure want to Accept the task.</string>
@@ -38,7 +40,7 @@
         completions."
     </string>
     <string name="title_activity_login">LOGIN</string>
-    <string name="title_activity_sign_up">Registertion</string>
+    <string name="title_activity_sign_up">Registration</string>
     <string name="title_activity_product_detail">Home</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_payment">Payment</string>
@@ -53,4 +55,7 @@
     <string name="title_activity_notification">Notification</string>
     <string name="title_activity_doc_upload">View Document</string>
     <string name="title_activity_chat">Comment</string>
+    <string name="title_activity_current_doc_upload">View Doc/Comment</string>
+    <string name="title_activity_upload_pop_up">UploadPopUpActivity</string>
+    <string name="title_activity_view_full_image">View Document</string>
 </resources>

@@ -6,10 +6,11 @@
     <!--<color name="colorPrimary">#ed1c24</color>-->
     <!--<color name="colorAccent">#0288D1</color>-->
 
-    <color name="colorPrimary">#009688</color>
-    <color name="colorPrimaryDark">#00796b</color>
+    <color name="colorPrimary">#242E66</color>
+    <color name="colorPrimaryDark">#000B4D</color>
     <color name="colorPrimaryLight">#b2dfdb</color>
-    <color name="colorAccent">#009688</color>
+    <!--<color name="colorAccent">#8093FF</color>-->
+    <color name="colorAccent">#6200EE</color>
 
     <color name="primary_light">#FFCDD2</color>
 
@@ -24,6 +25,24 @@
     <color name="seperator_white">#dadada</color>
 
 
+    <color name="Purple_light">#ff7b1fa2</color>
+    <color name="Purple_dark">#ff6a1b9a</color>
+
+    <color name="Teal_700">#ff00796b</color>
+    <color name="Teal_800">#ff00695c</color>
+    <color name="Blue_700">#ff3367d6</color>
+    <color name="Blue_800">#ff2a56c6</color>
+    <color name="Indigo_700">#ff303f9f</color>
+    <color name="Indigo_800">#ff283593</color>
+    <color name="Pink_800">#ffad1457</color>
+    <color name="Red_400">#ef5350</color>
+    <color name="Red_700">#ffc53929</color>
+    <color name="Red_800">#ffb93221</color>
+    <color name="Red_900">#b71c1c</color>
+    <color name="Red_bg">#a31919</color>
+
+    <color name="teallight">#19A79B</color>
+    <color name="tealdark0">#116d65</color>
 
 
     <color name="darkBlue">#1565c0</color>
@@ -47,6 +66,7 @@
     <color name="seperator">#E1DEDE</color>
     <color name="search_gray">#bcbcbc</color>
     <color name="black">#212121</color>
+    <color name="black_dark">#000000</color>
     <color name="dashboard_title">#3a4147</color>
 
     <!--RBA-->

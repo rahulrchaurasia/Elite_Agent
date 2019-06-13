@@ -6,17 +6,17 @@
     android:layout_height="wrap_content"
     android:background="@color/seperator"
     android:orientation="vertical"
-    android:paddingBottom="4dp"
     android:paddingLeft="4dp"
-    android:paddingRight="4dp">
+    android:paddingRight="4dp"
+    android:paddingBottom="4dp">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
         android:layout_marginTop="5dp"
+        android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
         app:cardCornerRadius="5dp">
 
@@ -49,9 +49,6 @@
                     android:textColor="@color/white"
                     android:textStyle="bold" />
             </LinearLayout>
-
-
-
 
 
             <LinearLayout
@@ -286,9 +283,6 @@
             </LinearLayout>
 
 
-
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -297,214 +291,216 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <LinearLayout
+            <LinearLayout
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:orientation="vertical"
-            android:padding="4dp">
-
-            <TextView
-                android:id="@+id/txtProduct"
-                style="@style/TextViewStyle.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingTop="8dp"
-                android:text="Prd Name"
-                android:textAllCaps="true"
-                android:textAppearance="@style/TextStyle.Title" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.7dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/seperator" />
-
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingTop="5dp">
+                android:orientation="vertical"
+                android:padding="4dp">
 
                 <TextView
-                    android:id="@+id/textOrderId"
-                    style="@style/TextViewStyle.MediumRegular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="Request Id:"
-                    android:textColor="@color/dashboard_title" />
-
-
-                <TextView
-                    android:id="@+id/txtOrderId"
-                    style="@style/TextViewStyle.MediumBold"
+                    android:id="@+id/txtProduct"
+                    style="@style/TextViewStyle.Large"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/textOrderId"
-                    android:text="0" />
+                    android:gravity="center_vertical"
+                    android:paddingTop="8dp"
+                    android:text="Prd Name"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextStyle.Title" />
 
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:id="@+id/textTat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="TAT: "
-                    style="@style/TextViewStyle.MediumRegular"
-                    android:textColor="@color/dashboard_title" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/seperator" />
 
 
-                <TextView
-                    android:id="@+id/txtTat"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/textTat"
-                    android:layout_marginLeft="5dp"
-                    android:text="5"
-                    style="@style/TextViewStyle.MediumRegular" />
+                    android:paddingTop="5dp"
+                    android:paddingBottom="8dp">
 
-            </RelativeLayout>
-
-
-
-            <RelativeLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:id="@+id/textOrderStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="Order Status:"
-                    style="@style/TextViewStyle.MediumRegular"
-                    android:textColor="@color/dashboard_title" />
+                    <TextView
+                        android:id="@+id/textOrderId"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Request Id:"
+                        android:textColor="@color/dashboard_title" />
 
 
-                <TextView
-                    android:id="@+id/txtOrderStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/textOrderStatus"
-                    android:layout_marginLeft="5dp"
-                    android:text="date"
-                    style="@style/TextViewStyle.MediumRegular" />
+                    <TextView
+                        android:id="@+id/txtOrderId"
+                        style="@style/TextViewStyle.MediumBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/textOrderId"
+                        android:text="0" />
 
+                </RelativeLayout>
 
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RlComment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:id="@+id/textDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="Date: "
-                    style="@style/TextViewStyle.MediumRegular"
-                    android:textColor="@color/dashboard_title" />
-
-
-                <TextView
-                    android:id="@+id/txtDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/textDate"
-                    android:layout_marginLeft="5dp"
-                    android:text="date"
-                    style="@style/TextViewStyle.MediumRegular" />
-
-                <TextView
-                    android:id="@+id/txtComment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/darkBlue"
-                    android:text="@string/comment"
-                    style="MediumRegular" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:visibility="gone"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:id="@+id/texRemark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="Remark:"
-                    style="@style/TextViewStyle.MediumRegular"
-                    android:textColor="@color/dashboard_title" />
-
-
-                <TextView
-                    android:id="@+id/txtRemark"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/texRemark"
-                    android:layout_marginLeft="5dp"
-                    android:text="date"
-                    style="@style/TextViewStyle.MediumRegular" />
+                    android:paddingTop="5dp"
+                    android:paddingBottom="8dp">
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/textTat"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="TAT: "
+                        android:textColor="@color/dashboard_title" />
 
+
+                    <TextView
+                        android:id="@+id/txtTat"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/textTat"
+                        android:text="5" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/textOrderStatus"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Order Status:"
+                        android:textColor="@color/dashboard_title" />
+
+
+                    <TextView
+                        android:id="@+id/txtOrderStatus"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/textOrderStatus"
+                        android:text="date" />
+
+
+                    <TextView
+                        android:id="@+id/txtViewDoc"
+                        style="MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:text="@string/upload"
+                        android:textColor="@color/darkBlue" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RlComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/textDate"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Date: "
+                        android:textColor="@color/dashboard_title" />
+
+
+                    <TextView
+                        android:id="@+id/txtDate"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/textDate"
+                        android:text="date" />
+
+                    <TextView
+                        android:id="@+id/txtComment"
+                        style="MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:text="@string/comment"
+                        android:textColor="@color/darkBlue" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="8dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/texRemark"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Remark:"
+                        android:textColor="@color/dashboard_title" />
+
+
+                    <TextView
+                        android:id="@+id/txtRemark"
+                        style="@style/TextViewStyle.MediumRegular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/texRemark"
+                        android:text="date" />
+
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
 
             <Button
-                android:id="@+id/btnUpdate"
-                android:layout_margin="10dp"
+                android:id="@+id/btnUploadFile"
                 style="@style/ButtonStyle"
-                android:text="UPDATE"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
-
-        </LinearLayout>
-
-            <Button
-                android:id="@+id/btnUpload"
-                style="@style/ButtonStyle"
-                android:layout_marginTop="5dp"
+                android:background="@color/back_button_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
 
-                android:drawableLeft="@drawable/ic_visibility"
+                android:drawableLeft="@drawable/ic_file_upload"
                 android:drawablePadding="8dp"
                 android:gravity="center|center_vertical"
                 android:padding="9dp"
-                android:text="View Document"
+                android:text="Upload And Comment"
                 android:textColor="@color/white"
                 android:visibility="visible" />
+
+
         </LinearLayout>
 
 
