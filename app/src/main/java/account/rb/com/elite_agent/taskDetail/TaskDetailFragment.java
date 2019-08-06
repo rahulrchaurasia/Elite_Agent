@@ -2,10 +2,10 @@ package account.rb.com.elite_agent.taskDetail;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +23,9 @@ import account.rb.com.elite_agent.R;
 import account.rb.com.elite_agent.core.APIResponse;
 import account.rb.com.elite_agent.core.IResponseSubcriber;
 import account.rb.com.elite_agent.core.controller.product.ProductController;
-import account.rb.com.elite_agent.core.model.OrderStatusEntity;
 import account.rb.com.elite_agent.core.model.TaskEntity;
 import account.rb.com.elite_agent.core.model.UserEntity;
 import account.rb.com.elite_agent.core.response.AgentCommonResponse;
-import account.rb.com.elite_agent.core.response.CommonResponse;
 import account.rb.com.elite_agent.core.response.TaskDetailResponse;
 import account.rb.com.elite_agent.database.DataBaseController;
 import account.rb.com.elite_agent.splash.PrefManager;

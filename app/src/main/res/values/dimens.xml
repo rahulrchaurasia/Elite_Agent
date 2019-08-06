@@ -33,4 +33,8 @@
 
     <!-- Selectable Items -->
     <dimen name="selectable_rounded_rect_corner_radius">3dp</dimen>
+
+    <dimen name="list_padding">0dp</dimen>
+    <dimen name="list_item_padding">16dp</dimen>
+
 </resources>

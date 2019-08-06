@@ -1,19 +1,19 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Rahul Proj\EliteAgent\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml:17:2-22:12
-INJECTED from D:\Rahul Proj\EliteAgent\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml:17:2-22:12
-INJECTED from D:\Rahul Proj\EliteAgent\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml:17:2-22:12
+ADDED from D:\android_git_project\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml:17:2-22:12
+INJECTED from D:\android_git_project\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml:17:2-22:12
+INJECTED from D:\android_git_project\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml:17:2-22:12
 	package
-		ADDED from D:\Rahul Proj\EliteAgent\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml:18:5-40
-		INJECTED from D:\Rahul Proj\EliteAgent\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml
-		INJECTED from D:\Rahul Proj\EliteAgent\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml
+		ADDED from D:\android_git_project\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml:18:5-40
+		INJECTED from D:\android_git_project\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml
+		INJECTED from D:\android_git_project\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\Rahul Proj\EliteAgent\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml:17:12-70
+		ADDED from D:\android_git_project\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml:17:12-70
 uses-sdk
-INJECTED from D:\Rahul Proj\EliteAgent\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\Rahul Proj\EliteAgent\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml
-INJECTED from D:\Rahul Proj\EliteAgent\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml
+INJECTED from D:\android_git_project\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\android_git_project\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml
+INJECTED from D:\android_git_project\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\Rahul Proj\EliteAgent\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml
-		ADDED from D:\Rahul Proj\EliteAgent\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml
-		INJECTED from D:\Rahul Proj\EliteAgent\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml
+		INJECTED from D:\android_git_project\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml
+		ADDED from D:\android_git_project\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml
+		INJECTED from D:\android_git_project\Elite_Agent\aFileChooser\src\main\AndroidManifest.xml

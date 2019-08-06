@@ -31,7 +31,6 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
-import com.ianhanniballake.localstorage.LocalStorageProvider;
 
 import java.io.File;
 import java.io.FileFilter;

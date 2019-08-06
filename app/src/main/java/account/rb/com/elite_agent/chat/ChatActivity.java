@@ -1,14 +1,12 @@
 package account.rb.com.elite_agent.chat;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
@@ -26,11 +24,9 @@ import account.rb.com.elite_agent.R;
 import account.rb.com.elite_agent.core.APIResponse;
 import account.rb.com.elite_agent.core.IResponseSubcriber;
 import account.rb.com.elite_agent.core.controller.product.ProductController;
-import account.rb.com.elite_agent.core.controller.register.RegisterController;
 import account.rb.com.elite_agent.core.model.ChatEntity;
 import account.rb.com.elite_agent.core.model.UserEntity;
 import account.rb.com.elite_agent.core.response.ChatResponse;
-import account.rb.com.elite_agent.register.SignUpActivity;
 import account.rb.com.elite_agent.splash.PrefManager;
 import account.rb.com.elite_agent.utility.Constants;
 
@@ -44,7 +40,7 @@ public class ChatActivity extends BaseActivity implements IResponseSubcriber ,On
 
     RecyclerView rvChat;
     List<ChatEntity> chatEntityList;
-    ChatAdapter mAdapter;
+   // ChatAdapter mAdapter;
     int OrderID;
 
     TextWatcher commentTextWatcher = new TextWatcher() {
@@ -128,8 +124,8 @@ public class ChatActivity extends BaseActivity implements IResponseSubcriber ,On
 
                etComment.setText("");
                 chatEntityList = ((ChatResponse) response).getData();
-                mAdapter = new ChatAdapter(ChatActivity.this, chatEntityList);
-                rvChat.setAdapter(mAdapter);
+               // mAdapter = new ChatAdapter(ChatActivity.this, chatEntityList);
+              //  rvChat.setAdapter(mAdapter);
                 rvChat.scrollToPosition(chatEntityList.size() - 1);
 
             } else {

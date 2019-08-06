@@ -1,35 +1,24 @@
 package account.rb.com.elite_agent.document;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 
 import account.rb.com.elite_agent.BaseActivity;
@@ -42,7 +31,6 @@ import account.rb.com.elite_agent.core.model.UserEntity;
 import account.rb.com.elite_agent.core.response.DocumentViewResponse;
 import account.rb.com.elite_agent.database.DataBaseController;
 import account.rb.com.elite_agent.splash.PrefManager;
-import okhttp3.MultipartBody;
 
 public class DocUploadActivity extends BaseActivity implements IResponseSubcriber {
 

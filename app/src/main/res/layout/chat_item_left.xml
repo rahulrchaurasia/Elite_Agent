@@ -45,8 +45,7 @@
             android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:textColor="@color/button_gray"
+            android:textColor="@color/header_text_color"
             android:text="date"/>
     </RelativeLayout>
     </RelativeLayout>

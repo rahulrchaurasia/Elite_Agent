@@ -11,9 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +20,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.ipaulpro.afilechooser.utils.FileUtils;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -42,6 +42,7 @@ import account.rb.com.elite_agent.core.model.DocUploadEntity;
 import account.rb.com.elite_agent.core.model.UserEntity;
 import account.rb.com.elite_agent.core.response.CommonResponse;
 import account.rb.com.elite_agent.core.response.UploadDocResponse;
+import account.rb.com.elite_agent.file_chooser.utils.FileUtils;
 import account.rb.com.elite_agent.splash.PrefManager;
 import account.rb.com.elite_agent.utility.CircleTransform;
 import account.rb.com.elite_agent.utility.Constants;
@@ -285,7 +286,7 @@ public class UploadPopUpActivity extends BaseActivity implements IResponseSubcri
     //endregion
 
     private void showCamerGalleryPopUp() {
-        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this, R.style.CustomDialog);
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this, R.style.CustomDialog);
 
         LinearLayout lyCamera, lyGallery, lyPdf;
         LayoutInflater inflater = this.getLayoutInflater();
@@ -293,7 +294,7 @@ public class UploadPopUpActivity extends BaseActivity implements IResponseSubcri
         final View dialogView = inflater.inflate(R.layout.layout_cam_gallery, null);
 
         builder.setView(dialogView);
-        final android.support.v7.app.AlertDialog alertDialog = builder.create();
+        final androidx.appcompat.app.AlertDialog alertDialog = builder.create();
         // set the custom dialog components - text, image and button
         lyCamera = (LinearLayout) dialogView.findViewById(R.id.lyCamera);
         lyGallery = (LinearLayout) dialogView.findViewById(R.id.lyGallery);

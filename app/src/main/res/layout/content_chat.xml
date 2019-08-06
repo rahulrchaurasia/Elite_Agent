@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="account.rb.com.elite_agent.chat.ChatActivity"
     tools:showIn="@layout/activity_chat">
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_above="@+id/lyMssg"
         android:layout_alignParentTop="true"
         android:id="@+id/rvChat"
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="5dp">
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:id="@+id/lyMssg"

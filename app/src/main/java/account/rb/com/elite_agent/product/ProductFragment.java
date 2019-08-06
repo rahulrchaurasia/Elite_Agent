@@ -1,37 +1,30 @@
 package account.rb.com.elite_agent.product;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import account.rb.com.elite_agent.BaseFragment;
 import account.rb.com.elite_agent.R;
 import account.rb.com.elite_agent.core.APIResponse;
 import account.rb.com.elite_agent.core.IResponseSubcriber;
-import account.rb.com.elite_agent.core.controller.product.ProductController;
-import account.rb.com.elite_agent.core.model.LoginEntity;
 import account.rb.com.elite_agent.core.model.UserEntity;
 import account.rb.com.elite_agent.core.response.OrderResponse;
 import account.rb.com.elite_agent.database.DataBaseController;
 import account.rb.com.elite_agent.splash.PrefManager;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

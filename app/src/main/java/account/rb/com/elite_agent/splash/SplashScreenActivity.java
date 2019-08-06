@@ -3,7 +3,9 @@ package account.rb.com.elite_agent.splash;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+
+import com.google.android.material.snackbar.Snackbar;
+
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -87,7 +89,7 @@ public class SplashScreenActivity extends BaseActivity implements IResponseSubcr
 
             // Changing action button text color
             View sbView = snackbar.getView();
-            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            TextView textView = (TextView) sbView.findViewById(R.id.snackbar_text);
             textView.setTextColor(Color.CYAN);
 
             snackbar.show();

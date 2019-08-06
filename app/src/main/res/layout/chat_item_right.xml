@@ -22,12 +22,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!--android:background="@drawable/customer_message"-->
         <TextView
             android:id="@+id/txtMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/customer_message"
+
             android:elevation="2dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"

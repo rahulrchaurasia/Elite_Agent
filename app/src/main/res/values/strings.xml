@@ -58,4 +58,10 @@
     <string name="title_activity_current_doc_upload">View Doc/Comment</string>
     <string name="title_activity_upload_pop_up">UploadPopUpActivity</string>
     <string name="title_activity_view_full_image">View Document</string>
+
+    <string name="empty_directory">Empty Directory</string>
+    <string name="storage_removed">Storage was removed or unmounted.</string>
+    <string name="choose_file">Select a file</string>
+    <string name="error_selecting_file">Error selecting File</string>
+    <string name="internal_storage">Internal storage</string>
 </resources>
